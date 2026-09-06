@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import QuoteCTA from '../components/QuoteCTA.astro';
+
+const processSteps = [
+  {
+    title: 'Detailed Quote',
+    detail: 'We gather your move details, access information and service requirements to scope the move accurately.'
+  },
+  {
+    title: 'Move Planning',
+    detail: 'You receive a practical plan covering timings, property access and requested dismantling or packing support.'
+  },
+  {
+    title: 'Professional Moving Day',
+    detail: 'Our team protects and loads belongings carefully, then transports and unloads room by room at destination.'
+  },
+  {
+    title: 'Set-Up Support',
+    detail: 'Furniture can be reassembled and positioned so your new home is functional from day one.'
+  }
+];
+---
+
+<BaseLayout
+  title="House Removals in Yorkshire | Optima Transport"
+  description="Professional full-house removals across Yorkshire and nationwide. House removals remain an important secondary service alongside Optima's primary property clearance work."
+  canonicalPath="/house-removals"
+>
+  <PageHero
+    eyebrow="House Removals"
+    title="Professional Full-House Moves, Planned And Delivered Properly"
+    intro="House removals remain an important Optima service for homeowners who need reliable handling and clear communication. If you need a property emptied rather than relocated, visit our dedicated house clearances service."
+  />
+
+  <section class="section-tight">
+    <div class="container panel">
+      <h2>Need A Full Property Clearance Instead?</h2>
+      <p>
+        House clearances are now our primary growth service. If the goal is to clear a property rather than move into
+        a new home, visit the dedicated clearance page.
+      </p>
+      <p><a class="btn btn-secondary" href="/house-clearances">View House Clearances</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="panel">
+        <h2>Full House Removals</h2>
+        <p>
+          From smaller properties to larger family homes, we organise and execute moves with structure rather than
+          guesswork. You receive a clearer process, better handling and a team focused on getting the whole move done
+          properly.
+        </p>
+      </article>
+      <article class="panel">
+        <h2>Local And Long-Distance Moves</h2>
+        <p>
+          We regularly complete local Yorkshire moves and longer-distance relocations nationwide. One team manages the
+          journey so accountability stays clear.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head">
+        <h2>What Is Included In A House Move Service</h2>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Furniture Protection</h3>
+          <p>Protective handling for furniture, mattresses, mirrors and fragile household items.</p>
+        </article>
+        <article class="card">
+          <h3>Loading And Unloading</h3>
+          <p>Careful loading at your current property and controlled unloading at the new address.</p>
+        </article>
+        <article class="card">
+          <h3>Dismantling And Reassembly</h3>
+          <p>Beds and larger furniture can be dismantled for transport and rebuilt at destination.</p>
+        </article>
+        <article class="card">
+          <h3>Packing Support</h3>
+          <p>Optional support with packing preparation for homeowners who need extra help before move day.</p>
+        </article>
+        <article class="card">
+          <h3>Room Placement</h3>
+          <p>Unloading into the correct rooms to make settling in faster and less disruptive.</p>
+        </article>
+        <article class="card">
+          <h3>Pre-Move Coordination</h3>
+          <p>Clear communication before moving day covering timing, access and practical logistics.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Moving Process</h2>
+        <p>A predictable structure that makes booking and preparing for your move easier.</p>
+      </div>
+      <ProcessSteps steps={processSteps} />
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Why Homeowners Choose Optima</h2>
+        <ul class="bullets">
+          <li>Independent Yorkshire company with professional standards</li>
+          <li>Service built around full-property removals, not one-off van hire</li>
+          <li>Practical, clear communication before and during the move</li>
+          <li>Local routes and nationwide move capability</li>
+          <li>One point of responsibility from quote to completion</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Reviews Placeholder</h2>
+        <p>
+          Add genuine Google and Facebook homeowner reviews here to reinforce trust and move quality.
+        </p>
+        <p><a class="btn btn-secondary" href="/quote">Request A House Move Quote</a></p>
+      </article>
+    </div>
+  </section>
+
+  <QuoteCTA title="Planning A House Move?" text="Tell us about your property, dates and destinations. We will provide a clear quote and practical guidance on next steps." />
+</BaseLayout>
+
+<style>
+  .bullets {
+    list-style: disc;
+    margin-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+</style>

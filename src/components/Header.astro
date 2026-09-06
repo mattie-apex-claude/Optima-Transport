@@ -1,0 +1,245 @@
+---
+const navItems = [
+  { href: '/house-clearances', label: 'Clearances' },
+  { href: '/probate-house-clearances', label: 'Probate' },
+  { href: '/house-removals', label: 'Removals' },
+  { href: '/landlord-property-clearances', label: 'For Professionals' },
+  { href: '/areas', label: 'Areas' },
+  { href: '/about', label: 'About' }
+];
+
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
+const isActive = (href: string) => currentPath === href || currentPath.startsWith(`${href}/`);
+---
+
+<header class={`site-header ${isHome ? 'is-home' : ''}`} data-home={isHome ? 'true' : 'false'}>
+  <div class="container nav-shell">
+    <a href="/" class="brand" aria-label="Optima home">
+      <img
+        src="/images/optima-logo.png"
+        alt="Optima Transport"
+        width="220"
+        height="54"
+        loading="eager"
+        onerror="this.style.display='none'"
+      />
+      <span class="logo-fallback">Optima Transport</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <ul>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} class={isActive(item.href) ? 'active' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a class="quote-link" href="/quote">Get a Quote <span aria-hidden="true">→</span></a>
+
+    <details class="mobile-nav">
+      <summary aria-label="Open menu">Menu</summary>
+      <nav aria-label="Mobile navigation">
+        <ul>
+          {navItems.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <a class="btn btn-primary" href="/quote">Get a Quote</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+{isHome && (
+  <script>
+    const header = document.querySelector('.site-header');
+    const onScroll = () => {
+      if (!header) return;
+      if (window.scrollY > 24) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+)}
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: rgba(248, 247, 244, 0.96);
+    border-bottom: 1px solid var(--optima-border);
+  }
+
+  .site-header.is-home {
+    position: fixed;
+    left: 0;
+    right: 0;
+    background: transparent;
+    border-bottom-color: transparent;
+  }
+
+  .site-header.is-home.scrolled {
+    background: rgba(248, 247, 244, 0.96);
+    border-bottom-color: var(--optima-border);
+  }
+
+  .nav-shell {
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.02em;
+    color: var(--optima-white);
+  }
+
+  .brand img {
+    width: auto;
+    height: 2rem;
+    object-fit: contain;
+  }
+
+  .logo-fallback {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .site-header.scrolled .brand,
+  .site-header:not(.is-home) .brand {
+    color: var(--ink);
+  }
+
+  .desktop-nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .desktop-nav a,
+  .quote-link {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--optima-white);
+  }
+
+  .site-header.scrolled .desktop-nav a,
+  .site-header.scrolled .quote-link,
+  .site-header:not(.is-home) .desktop-nav a,
+  .site-header:not(.is-home) .quote-link {
+    color: var(--ink);
+  }
+
+  .desktop-nav a.active {
+    color: var(--optima-red);
+  }
+
+  .desktop-nav a:hover {
+    color: var(--optima-red);
+  }
+
+  .quote-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--optima-red);
+  }
+
+  .site-header:not(.is-home) .quote-link,
+  .site-header.scrolled .quote-link {
+    color: var(--optima-red);
+  }
+
+  .quote-link span {
+    transition: transform 0.2s ease;
+  }
+
+  .quote-link:hover span {
+    transform: translateX(2px);
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  @media (max-width: 1100px) {
+    .desktop-nav,
+    .quote-link {
+      display: none;
+    }
+
+    .nav-shell {
+      grid-template-columns: auto 1fr;
+    }
+
+    .mobile-nav {
+      justify-self: end;
+      display: block;
+      position: relative;
+    }
+
+    summary {
+      list-style: none;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.74rem;
+      border: 1px solid currentColor;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      color: var(--optima-white);
+    }
+
+    .site-header.scrolled summary,
+    .site-header:not(.is-home) summary {
+      color: var(--ink);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-nav nav {
+      position: absolute;
+      right: 0;
+      margin-top: 0.6rem;
+      width: min(88vw, 340px);
+      background: var(--optima-white);
+      border: 1px solid var(--optima-border);
+      padding: 1rem;
+      display: grid;
+      gap: 0.9rem;
+      border-bottom: 2px solid var(--optima-blue);
+    }
+
+    .mobile-nav ul {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .mobile-nav a {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: inline-flex;
+    }
+  }
+</style>

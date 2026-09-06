@@ -1,0 +1,87 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro: string;
+  primaryCtaHref?: string;
+  primaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  imageAriaLabel?: string;
+  imageAlt?: string;
+}
+
+const {
+  eyebrow = 'Optima Transport',
+  title,
+  intro,
+  primaryCtaHref = '/quote',
+  primaryCtaLabel = 'Get a Free Quote',
+  secondaryCtaHref = 'tel:+441134001234',
+  secondaryCtaLabel = 'Call Optima',
+  imageAriaLabel = 'Placeholder for real Optima property photography',
+  imageAlt = 'Placeholder: real Optima property clearance or removals photograph'
+} = Astro.props;
+---
+
+<section class="section hero-wrap">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{title}</h1>
+      <p class="hero-intro">{intro}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={primaryCtaHref}>{primaryCtaLabel}</a>
+        <a class="btn btn-secondary" href={secondaryCtaHref}>{secondaryCtaLabel}</a>
+      </div>
+    </div>
+
+    <div class="hero-image-card" role="img" aria-label={imageAriaLabel}>
+      <img
+        src="/images/hero-removal-placeholder.svg"
+        alt={imageAlt}
+        width="780"
+        height="560"
+        loading="eager"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-wrap {
+    padding-top: 2.2rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .hero-intro {
+    font-size: clamp(1.08rem, 2.2vw, 1.28rem);
+    max-width: 61ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero-image-card {
+    border: 1px solid var(--colour-line);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    background: #fff;
+  }
+
+  @media (max-width: 960px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

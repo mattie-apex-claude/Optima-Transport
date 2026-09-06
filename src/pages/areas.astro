@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteCTA from '../components/QuoteCTA.astro';
+
+const areas = [
+  {
+    id: 'leeds',
+    name: 'Leeds',
+    text: 'Regular full and partial house clearances across Leeds, including homeowner, probate and landlord work.'
+  },
+  {
+    id: 'york',
+    name: 'York',
+    text: 'Professional house clearances in York with clear scope planning and practical handling support.'
+  },
+  {
+    id: 'harrogate',
+    name: 'Harrogate',
+    text: 'Trusted Harrogate clearance support for full properties, partial jobs and retained item planning.'
+  },
+  {
+    id: 'wetherby',
+    name: 'Wetherby',
+    text: 'Wetherby property clearances for homeowners, families and property professionals.'
+  },
+  {
+    id: 'tadcaster',
+    name: 'Tadcaster',
+    text: 'Tadcaster house clearance and property clearance support, with additional services where needed.'
+  },
+  {
+    id: 'wakefield',
+    name: 'Wakefield',
+    text: 'Wakefield house clearances from full-property projects to selected-area clearances.'
+  }
+];
+---
+
+<BaseLayout
+  title="Areas We Cover Across Yorkshire | Optima Transport"
+  description="House clearances across Leeds, York, Harrogate, Wetherby, Tadcaster and Wakefield, with supporting removals and transport services where required."
+  canonicalPath="/areas"
+>
+  <PageHero
+    eyebrow="Areas We Cover"
+    title="Yorkshire House Clearances With Wider Coverage Where Needed"
+    intro="Optima is based in Yorkshire and regularly supports key towns and cities across the region for full and partial property clearances."
+  />
+
+  <section class="section">
+    <div class="container grid-2">
+      {areas.map((area) => (
+        <article class="card" id={area.id}>
+          <h2>{area.name}</h2>
+          <p>{area.text}</p>
+          <p><a href="/quote" class="btn btn-secondary">Get a Free Clearance Quote</a></p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container panel">
+      <h2>Future Local Landing Pages</h2>
+      <p>
+        This structure is ready for dedicated local clearance pages as the site grows, including:
+        /house-clearances/leeds, /house-clearances/york, /house-clearances/harrogate,
+        /house-clearances/wetherby, /house-clearances/tadcaster and /house-clearances/wakefield.
+      </p>
+    </div>
+  </section>
+
+  <QuoteCTA title="Need A Property Cleared In Yorkshire?" text="Share your area and property details and we will provide a practical clearance quote." />
+</BaseLayout>

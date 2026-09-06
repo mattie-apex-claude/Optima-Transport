@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteCTA from '../components/QuoteCTA.astro';
+---
+
+<BaseLayout
+  title="Commercial Clearances And Removals | Optima Transport"
+  description="Commercial property clearances and office removals across Yorkshire, helping businesses and property managers prepare spaces for their next stage."
+  canonicalPath="/commercial-removals"
+>
+  <PageHero
+    eyebrow="Commercial Services"
+    title="Commercial Clearances And Moves With Practical Planning"
+    intro="Optima supports businesses and property professionals with commercial clearances and office removals, planned around your operational requirements."
+  />
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Commercial Clearances</h2>
+        <p>
+          Clear units, offices and workspaces that need unwanted contents removed before reletting, refurbishment or
+          handover.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Office Moves</h2>
+        <p>
+          Support for office furniture, equipment and boxed assets, with clear plans for loading, transport and setup.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Flexible Scheduling</h2>
+        <p>
+          Where practical, moves can be arranged around business hours to limit interruption to normal operations.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container panel">
+      <h2>Transport And Handling</h2>
+      <p>
+        Commercial jobs vary in size and complexity. We scope each move properly so logistics, access and handling
+        requirements are addressed before moving day.
+      </p>
+      <p><a href="/quote" class="btn btn-primary">Request a Commercial Quote</a></p>
+    </div>
+  </section>
+
+  <QuoteCTA title="Planning A Commercial Move?" text="Share your site details and timeline. We will provide a practical quote and move plan." />
+</BaseLayout>

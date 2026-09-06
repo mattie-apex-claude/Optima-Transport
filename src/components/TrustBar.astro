@@ -1,0 +1,44 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="section-tight trust-bar" aria-label="Trust indicators">
+  <div class="container">
+    <ul>
+      {items.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .trust-bar {
+    background: #0d3146;
+    color: #f2f7fb;
+  }
+
+  .trust-bar ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .trust-bar li {
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 0.7rem;
+    padding: 0.7rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 860px) {
+    .trust-bar ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

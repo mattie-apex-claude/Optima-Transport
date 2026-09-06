@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteCTA from '../components/QuoteCTA.astro';
+---
+
+<BaseLayout
+  title="Packing Services For House Moves | Optima Transport"
+  description="Packing support and preparation services from Optima Transport to help Yorkshire homeowners get move-ready with less stress and better protection."
+  canonicalPath="/packing-services"
+>
+  <PageHero
+    eyebrow="Packing Services"
+    title="Need Help Getting Packed And Move-Ready?"
+    intro="Packing is offered as a supporting service for selected removals work where customers need extra preparation help before moving day."
+  />
+
+  <section class="section">
+    <div class="container grid-3">
+      <article class="card">
+        <h2>Full Packing Support</h2>
+        <p>Useful when time is tight or you want the move prepared professionally from the outset.</p>
+      </article>
+      <article class="card">
+        <h2>Selected-Room Packing</h2>
+        <p>Target key rooms such as kitchens, loft spaces or home offices where packing usually takes longer.</p>
+      </article>
+      <article class="card">
+        <h2>Fragile Item Preparation</h2>
+        <p>Extra care for delicate household items, mirrors, TVs and valuable belongings.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container panel">
+      <h2>Packing Materials And Planning</h2>
+      <p>
+        We can discuss materials and preparation options during quoting, including what should be packed in advance and
+        what can be handled close to moving day. Material specifics can be confirmed based on move requirements.
+      </p>
+      <p><a href="/quote" class="btn btn-primary">Get a Free Quote</a></p>
+    </div>
+  </section>
+
+  <QuoteCTA title="Add Packing Support To Your Move" text="Request a quote and tell us how much packing support you need. We can tailor this around your moving schedule." />
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  route: string;
+  property: string;
+  description: string;
+  image: string;
+}
+
+const { title, route, property, description, image } = Astro.props;
+---
+
+<article class="card project-card">
+  <img src={image} alt="Placeholder for real Optima move project photograph" width="540" height="340" loading="lazy" />
+  <div>
+    <h3>{title}</h3>
+    <p class="route">{route}</p>
+    <p>{property}</p>
+    <p>{description}</p>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .project-card img {
+    width: 100%;
+    border-bottom: 1px solid var(--colour-line);
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .project-card div {
+    padding: 1rem 1rem 1.2rem;
+  }
+
+  .route {
+    color: var(--colour-brand);
+    font-weight: 700;
+  }
+</style>

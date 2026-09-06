@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteCTA from '../components/QuoteCTA.astro';
+---
+
+<BaseLayout
+  title="About Optima Transport | Yorkshire House Clearance Company"
+  description="Learn about Optima Transport, an independent Yorkshire property clearance company focused on professional full and partial house clearances."
+  canonicalPath="/about"
+>
+  <PageHero
+    eyebrow="About Optima"
+    title="Independent Yorkshire Property Service, Built Around Professional Clearances"
+    intro="Optima combines professional standards with local accountability, focusing on full and partial property clearances while continuing to offer house removals and transport services."
+  />
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>How We Work</h2>
+        <p>
+          We focus on clear scope, practical planning and careful execution. The aim is simple: you decide what stays,
+          and we handle the agreed clearance work professionally.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Who We Help</h2>
+        <p>
+          Homeowners, families handling probate properties, landlords, letting agents and investors needing properties
+          cleared and ready for their next stage.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Coverage</h2>
+        <p>
+          Yorkshire is our base, including Leeds, York, Harrogate, Wetherby, Tadcaster and Wakefield, with nationwide
+          move capability when needed.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Approach</h2>
+        <p>
+          We keep things straightforward: clear expectations, practical planning, reliable attendance and careful
+          execution on clearance or moving day.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <QuoteCTA title="Speak To Optima About Your Property" text="If you need a property cleared or moved, request a quote and we will guide you through the next steps." />
+</BaseLayout>

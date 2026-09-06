@@ -1,0 +1,1117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Optima Transport',
+  url: 'https://www.optimatransport.co.uk/',
+  areaServed: ['Leeds', 'York', 'Harrogate', 'Wetherby', 'Tadcaster', 'Wakefield', 'United Kingdom'],
+  serviceType: [
+    'Complete house clearances',
+    'Probate house clearances',
+    'Landlord property clearances',
+    'Partial property clearances',
+    'House removals'
+  ]
+};
+
+const serviceRows = [
+  {
+    number: '01',
+    label: 'Full House Clearances',
+    href: '/house-clearances',
+    image: '/images/project-placeholder-1.svg',
+    alt: 'Placeholder for full house clearance photography'
+  },
+  {
+    number: '02',
+    label: 'Probate and Bereavement Clearances',
+    href: '/probate-house-clearances',
+    image: '/images/project-placeholder-2.svg',
+    alt: 'Placeholder for probate house clearance photography'
+  },
+  {
+    number: '03',
+    label: 'Landlord Property Clearances',
+    href: '/landlord-property-clearances',
+    image: '/images/project-placeholder-3.svg',
+    alt: 'Placeholder for landlord property clearance photography'
+  },
+  {
+    number: '04',
+    label: 'Garage and Outbuilding Clearances',
+    href: '/house-clearances',
+    image: '/images/project-placeholder-1.svg',
+    alt: 'Placeholder for garage and outbuilding clearance photography'
+  },
+  {
+    number: '05',
+    label: 'Furniture and Bulky Item Removal',
+    href: '/house-clearances',
+    image: '/images/project-placeholder-2.svg',
+    alt: 'Placeholder for bulky item removal photography'
+  },
+  {
+    number: '06',
+    label: 'House Removals',
+    href: '/house-removals',
+    image: '/images/project-placeholder-3.svg',
+    alt: 'Placeholder for house removals photography'
+  }
+];
+---
+
+<BaseLayout
+  title="House Clearances Across Yorkshire | Optima Transport"
+  description="Professional full and partial property clearances across Yorkshire. You decide what stays. Optima handles the rest."
+  canonicalPath="/"
+  structuredData={structuredData}
+>
+  <section class="cinematic-hero" aria-labelledby="hero-title">
+    <div class="hero-ribbon"></div>
+    <img
+      src="/images/hero-removal-placeholder.svg"
+      alt="Placeholder for real Optima house clearance photograph"
+      width="1600"
+      height="1100"
+      class="hero-media"
+      loading="eager"
+    />
+    <div class="hero-overlay"></div>
+    <div class="container hero-inner">
+      <p class="hero-label">House Clearances<br />Yorkshire and Nationwide</p>
+      <h1 id="hero-title">You Decide<br />What Stays.<br />We Handle<br />The Rest.</h1>
+      <p class="hero-intro">Professional full and partial property clearances across Yorkshire.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/quote">Get a Clearance Quote <span aria-hidden="true">→</span></a>
+        <a class="link-arrow hero-call" href="tel:+441134001234">Call Optima <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-floating-panel" aria-hidden="true">
+      <span>Complete house clearances</span>
+      <span>Probate and landlord properties</span>
+      <span>Yorkshire base, nationwide capability</span>
+    </div>
+  </section>
+
+  <section class="proof-strip" aria-label="Proof strip">
+    <div class="container proof-line">
+      <span>Yorkshire Based</span>
+      <span>Full Property Clearances</span>
+      <span>5-Star Service Placeholder</span>
+      <span>Nationwide Capability</span>
+    </div>
+  </section>
+
+  <section class="section problem" aria-labelledby="problem-title">
+    <span class="section-number" aria-hidden="true">01</span>
+    <div class="container problem-grid">
+      <h2 id="problem-title">Clearing A Property Is A Bigger Job Than It Looks.</h2>
+      <div>
+        <p>
+          Furniture. Appliances. Lofts. Garages. Years of belongings. Items that need keeping. Items that need
+          transporting elsewhere. Everything else that needs dealing with.
+        </p>
+        <p>That is where Optima comes in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="principle" aria-labelledby="principle-title">
+    <div class="container">
+      <h2 id="principle-title" class="sr-only">Keep Move Clear principle</h2>
+      <div class="principle-row">
+        <article>
+          <h3>Keep.</h3>
+          <p>Tell us what must stay.</p>
+        </article>
+        <article>
+          <h3>Move.</h3>
+          <p>We will transport belongings that need to go elsewhere.</p>
+        </article>
+        <article>
+          <h3>Clear.</h3>
+          <p>We handle everything agreed for removal.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section featured" aria-labelledby="featured-title">
+    <span class="section-number" aria-hidden="true">02</span>
+    <div class="container featured-grid">
+      <figure>
+        <img
+          src="/images/project-placeholder-1.svg"
+          alt="Placeholder for real complete house clearance photography"
+          width="1200"
+          height="800"
+          loading="lazy"
+        />
+      </figure>
+      <div>
+        <p class="eyebrow">Featured Service</p>
+        <h2 id="featured-title">Complete House Clearance</h2>
+        <p>
+          Full house clearances. Partial clearances. Furniture. Appliances. Garages. Lofts. Outbuildings. Retained
+          belongings.
+        </p>
+        <p><a class="link-arrow" href="/house-clearances">Explore House Clearances <span aria-hidden="true">→</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section service-index" aria-labelledby="service-index-title">
+    <span class="section-number" aria-hidden="true">03</span>
+    <div class="container service-index-grid">
+      <div>
+        <p class="eyebrow">Service Index</p>
+        <h2 id="service-index-title">What We Handle</h2>
+        <ul>
+          {serviceRows.map((row, i) => (
+            <li>
+              <a href={row.href} data-preview={row.image} data-alt={row.alt} class={i === 0 ? 'active' : undefined}>
+                <span class="num">{row.number}</span>
+                <span class="name">{row.label}</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <figure class="service-preview">
+        <img id="service-preview-image" src={serviceRows[0].image} alt={serviceRows[0].alt} width="1200" height="800" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section probate-story" aria-labelledby="probate-title">
+    <span class="section-number" aria-hidden="true">04</span>
+    <div class="container probate-grid">
+      <figure>
+        <img
+          src="/images/project-placeholder-2.svg"
+          alt="Placeholder for real probate and bereavement clearance photography"
+          width="1200"
+          height="800"
+          loading="lazy"
+        />
+      </figure>
+      <div>
+        <p class="eyebrow">Probate and Bereavement</p>
+        <h2 id="probate-title">Some Clearances Need A Little More Care.</h2>
+        <p>
+          When clearing the home of someone who has died, families may need certain belongings retained, others
+          delivered to relatives, and the remainder of the property cleared.
+        </p>
+        <p>
+          Optima handles the practical side carefully and according to the family's instructions.
+        </p>
+        <p><a class="link-arrow" href="/probate-house-clearances">Probate House Clearances <span aria-hidden="true">→</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" aria-labelledby="process-title">
+    <span class="section-number" aria-hidden="true">05</span>
+    <div class="container process-grid">
+      <div>
+        <p class="eyebrow">How It Works</p>
+        <h2 id="process-title">Clearance Process</h2>
+      </div>
+      <ol>
+        <li>
+          <span class="count">01</span>
+          <div>
+            <h3>Tell Us About The Property</h3>
+            <p>Provide property details and, where possible, photographs.</p>
+          </div>
+        </li>
+        <li>
+          <span class="count">02</span>
+          <div>
+            <h3>Tell Us What Stays</h3>
+            <p>Identify anything that needs retaining or transporting elsewhere.</p>
+          </div>
+        </li>
+        <li>
+          <span class="count">03</span>
+          <div>
+            <h3>We Handle The Clearance</h3>
+            <p>Optima completes the agreed clearance.</p>
+          </div>
+        </li>
+        <li>
+          <span class="count">04</span>
+          <div>
+            <h3>Property Ready</h3>
+            <p>The property is left cleared to agreed scope and ready for its next stage.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section before-after" aria-labelledby="before-after-title">
+    <span class="section-number" aria-hidden="true">06</span>
+    <div class="container">
+      <p class="eyebrow">The Difference A Day Can Make</p>
+      <h2 id="before-after-title" class="sr-only">Before and after clearances</h2>
+      <article class="project-pair">
+        <div class="pair-head">
+          <span>Before</span>
+          <span>After</span>
+        </div>
+        <div class="pair-images">
+          <img src="/images/project-placeholder-1.svg" alt="Before clearance photo placeholder" width="1200" height="800" loading="lazy" />
+          <img src="/images/project-placeholder-2.svg" alt="After clearance photo placeholder" width="1200" height="800" loading="lazy" />
+        </div>
+        <p>Property type | Location | Clearance type</p>
+      </article>
+      <article class="project-pair">
+        <div class="pair-head">
+          <span>Before</span>
+          <span>After</span>
+        </div>
+        <div class="pair-images">
+          <img src="/images/project-placeholder-3.svg" alt="Before clearance photo placeholder" width="1200" height="800" loading="lazy" />
+          <img src="/images/project-placeholder-1.svg" alt="After clearance photo placeholder" width="1200" height="800" loading="lazy" />
+        </div>
+        <p>Property type | Location | Clearance type</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="professionals" aria-labelledby="professionals-title">
+    <span class="section-number section-number-dark" aria-hidden="true">07</span>
+    <div class="container">
+      <p class="eyebrow">For Property Professionals</p>
+      <h2 id="professionals-title">Property Empty. Next Job Ready.</h2>
+      <div class="pro-grid">
+        <article>
+          <h3>Estate Agents</h3>
+          <p>Properties ready for sale photography and viewings.</p>
+        </article>
+        <article>
+          <h3>Landlords</h3>
+          <p>End-of-tenancy clearances and abandoned belongings removed.</p>
+        </article>
+        <article>
+          <h3>Solicitors</h3>
+          <p>Practical property clearances supporting probate disposal.</p>
+        </article>
+        <article>
+          <h3>Property Investors</h3>
+          <p>Complete clearances before refurbishment or relaunch.</p>
+        </article>
+      </div>
+      <p><a class="link-arrow pro-link" href="/landlord-property-clearances">Discuss Regular Work <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <section class="section responsible" aria-labelledby="responsible-title">
+    <span class="section-number" aria-hidden="true">08</span>
+    <div class="container responsible-grid">
+      <h2 id="responsible-title">Not Everything Needs To Become Waste.</h2>
+      <div>
+        <p>
+          Optima aims to handle unwanted belongings through reuse, donation where appropriate, recycling and responsible
+          disposal routes according to the agreed scope.
+        </p>
+        <ul>
+          <li>Reuse</li>
+          <li>Donation</li>
+          <li>Recycling</li>
+          <li>Responsible Disposal</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="removals-banner" aria-labelledby="removals-title">
+    <img src="/images/project-placeholder-3.svg" alt="Placeholder for real Optima house removals photograph" width="1200" height="800" loading="lazy" />
+    <div class="container removals-inner">
+      <p class="eyebrow">Moving Instead?</p>
+      <h2 id="removals-title">Optima Also Provides Professional House Removals Across Yorkshire And Nationwide.</h2>
+      <p><a class="link-arrow" href="/house-removals">House Removals <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <section class="section testimonial" aria-labelledby="testimonial-title">
+    <span class="section-number" aria-hidden="true">09</span>
+    <div class="container">
+      <h2 id="testimonial-title" class="quote-mark">“Real customer review goes here.”</h2>
+      <p class="stars">★★★★★</p>
+      <p>Customer Name Placeholder | Location Placeholder</p>
+      <p><a class="link-arrow" href="/contact">Read Our Reviews <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <section class="section geography" aria-labelledby="geography-title">
+    <span class="section-number" aria-hidden="true">10</span>
+    <div class="container">
+      <p class="eyebrow">Based In Yorkshire.</p>
+      <h2 id="geography-title" class="sr-only">Service locations</h2>
+      <div class="locations">
+        <a href="/areas#leeds">Leeds</a>
+        <a href="/areas#york">York</a>
+        <a href="/areas#harrogate">Harrogate</a>
+        <a href="/areas#wetherby">Wetherby</a>
+        <a href="/areas#tadcaster">Tadcaster</a>
+        <a href="/areas#wakefield">Wakefield</a>
+      </div>
+      <p class="geo-foot">Clearances Across Yorkshire. Moves Across The UK.</p>
+    </div>
+  </section>
+
+  <section class="final-cta" aria-labelledby="final-title">
+    <span class="section-number section-number-dark" aria-hidden="true">11</span>
+    <div class="container">
+      <h2 id="final-title">Need The<br />Property<br />Cleared?</h2>
+      <p>Tell us what needs to go. We'll take it from there.</p>
+      <p><a class="link-arrow final-link" href="/quote">Get A Free Quote <span aria-hidden="true">→</span></a></p>
+      <p><a href="tel:+441134001234">0113 400 1234</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+  }
+
+  .cinematic-hero {
+    min-height: 94vh;
+    position: relative;
+    display: grid;
+    align-items: end;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    overflow: hidden;
+  }
+
+  .hero-ribbon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: clamp(14px, 1.4vw, 22px);
+    background: var(--optima-red);
+    z-index: 2;
+  }
+
+  .hero-media,
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-media {
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+  }
+
+  .hero-overlay {
+    background: linear-gradient(100deg, rgba(13, 18, 28, 0.82) 0%, rgba(13, 18, 28, 0.45) 42%, rgba(13, 18, 28, 0.2) 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    color: var(--optima-white);
+    padding: 8.8rem 0 4.4rem;
+    display: grid;
+    justify-items: start;
+  }
+
+  .hero-label {
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    font-size: 0.78rem;
+    color: var(--optima-red);
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-inner h1 {
+    max-width: 9.5ch;
+    margin-bottom: 1rem;
+    font-size: clamp(2.8rem, 9vw, 8.2rem);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
+  }
+
+  .hero-intro {
+    color: #ebeaeb;
+    font-size: clamp(1rem, 1.8vw, 1.18rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hero-actions .btn {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+  }
+
+  .hero-floating-panel {
+    position: absolute;
+    right: max(1rem, 4vw);
+    bottom: 1.2rem;
+    z-index: 2;
+    display: grid;
+    gap: 0.5rem;
+    background: rgba(36, 36, 38, 0.82);
+    color: var(--optima-white);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 1rem 1.1rem;
+    max-width: 18rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .hero-floating-panel span:first-child {
+    color: var(--optima-red);
+  }
+
+  .hero-call {
+    color: var(--optima-white);
+  }
+
+  .proof-strip {
+    border-bottom: 1px solid var(--line);
+    background: var(--optima-white);
+  }
+
+  .proof-line {
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .proof-line span {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+  }
+
+  .proof-line span:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -0.35rem;
+    top: 50%;
+    width: 1px;
+    height: 20px;
+    background: var(--optima-blue);
+    transform: translateY(-50%);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    position: relative;
+    padding-top: 1rem;
+  }
+
+  .problem-grid::before {
+    content: '';
+    position: absolute;
+    inset: -1rem auto -1rem 42%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--optima-red), transparent);
+  }
+
+  .problem h2 {
+    font-size: clamp(2rem, 7vw, 5.6rem);
+    max-width: 9.6ch;
+  }
+
+  .problem p {
+    font-size: 1.08rem;
+  }
+
+  .principle {
+    padding: 2.8rem 0 3.8rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--optima-white);
+    overflow: hidden;
+  }
+
+  .principle-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .principle-row article {
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+    position: relative;
+  }
+
+  .principle-row h3 {
+    font-size: clamp(2rem, 6vw, 4.7rem);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .principle-row article:first-child h3,
+  .principle-row article:nth-child(2) h3 {
+    color: var(--optima-grey-dark);
+  }
+
+  .principle-row article:last-child h3 {
+    color: var(--optima-red);
+  }
+
+  .principle-row article::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 4.5rem;
+    height: 2px;
+    background: var(--optima-blue);
+  }
+
+  .principle-row article:last-child h3 {
+    color: var(--optima-red);
+  }
+
+  .principle-row article p {
+    margin-bottom: 0;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    position: relative;
+  }
+
+  .featured-grid::before {
+    content: '';
+    position: absolute;
+    left: -1.25rem;
+    top: -1rem;
+    width: 4rem;
+    height: 4rem;
+    background: var(--optima-red);
+    z-index: -1;
+  }
+
+  .featured figure,
+  .probate-grid figure,
+  .removals-banner img,
+  .service-preview {
+    border: 1px solid var(--line);
+  }
+
+  .featured figure img {
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    transform: scale(1.02);
+  }
+
+  .featured h2 {
+    font-size: clamp(1.9rem, 4.5vw, 4rem);
+    max-width: 10ch;
+  }
+
+  .service-index-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    position: relative;
+    padding-top: 1rem;
+  }
+
+  .service-index ul {
+    border-top: 1px solid var(--line);
+  }
+
+  .service-index li a {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    min-height: 78px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .service-index li a:hover,
+  .service-index li a.active {
+    background: #f1efec;
+    border-bottom-color: var(--optima-blue);
+    transform: translateX(0.25rem);
+  }
+
+  .service-index .num {
+    color: var(--optima-red);
+    font-size: 0.82rem;
+  }
+
+  .service-index .arrow {
+    font-size: 1.15rem;
+    color: var(--optima-red);
+  }
+
+  .service-preview img {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transform: scale(1.02);
+  }
+
+  .probate-story {
+    background: var(--optima-off-white);
+  }
+
+  .probate-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.2rem;
+    align-items: center;
+    position: relative;
+  }
+
+  .probate-grid::after {
+    content: '';
+    position: absolute;
+    left: 48%;
+    bottom: -1.5rem;
+    width: 6rem;
+    height: 2px;
+    background: var(--optima-blue);
+  }
+
+  .probate-grid img {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transform: scale(1.02);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 2.5rem;
+    align-items: start;
+    position: relative;
+  }
+
+  .process ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--line);
+  }
+
+  .process li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1.5rem 0 1.5rem 1.2rem;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .process li::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--optima-red);
+  }
+
+  .process .count {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3.2vw, 2.8rem);
+    line-height: 1;
+    color: var(--optima-red);
+    min-width: 2.8ch;
+  }
+
+  .process h3 {
+    margin-bottom: 0.35rem;
+    font-size: clamp(1.28rem, 2.3vw, 2rem);
+    text-transform: uppercase;
+  }
+
+  .before-after {
+    background: var(--optima-white);
+  }
+
+  .project-pair {
+    margin-bottom: 3rem;
+  }
+
+  .pair-head,
+  .pair-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .pair-head {
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-size: 0.77rem;
+    font-weight: 700;
+  }
+
+  .pair-head span:first-child {
+    color: var(--ink-faint);
+  }
+
+  .pair-head span:last-child {
+    color: var(--optima-red);
+  }
+
+  .pair-images img {
+    border: 1px solid var(--line);
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    min-height: 260px;
+    transform: scale(1.01);
+  }
+
+  .professionals {
+    padding: 6.2rem 0;
+    background: var(--optima-grey-dark);
+    color: var(--optima-white);
+    position: relative;
+  }
+
+  .professionals::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 32px;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .professionals .container {
+    position: relative;
+  }
+
+  .professionals .eyebrow {
+    color: var(--optima-red);
+  }
+
+  .professionals h2,
+  .professionals h3,
+  .professionals p,
+  .pro-link {
+    color: var(--optima-white);
+  }
+
+  .pro-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .pro-grid article {
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    padding-top: 0.95rem;
+  }
+
+  .pro-link {
+    color: var(--optima-red);
+  }
+
+  .pro-grid h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.45rem;
+    text-transform: uppercase;
+  }
+
+  .responsible-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    position: relative;
+  }
+
+  .responsible-grid::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1rem;
+    width: 5rem;
+    height: 2px;
+    background: var(--optima-blue);
+  }
+
+  .responsible h2 {
+    max-width: 11ch;
+    font-size: clamp(2rem, 6vw, 5.3rem);
+  }
+
+  .responsible ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .responsible ul li:nth-child(4) {
+    border-bottom: 1px solid var(--optima-blue);
+    width: fit-content;
+  }
+
+  .removals-banner {
+    margin: 3rem 0;
+    position: relative;
+  }
+
+  .removals-banner img {
+    height: min(74vh, 660px);
+    object-fit: cover;
+    transform: scale(1.02);
+  }
+
+  .removals-inner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2.2rem;
+    color: var(--optima-white);
+  }
+
+  .removals-inner .eyebrow,
+  .removals-inner h2,
+  .removals-inner .link-arrow {
+    color: var(--optima-white);
+  }
+
+  .removals-inner h2 {
+    max-width: 18ch;
+    font-size: clamp(1.5rem, 3.4vw, 3.2rem);
+  }
+
+  .testimonial {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .testimonial::before {
+    content: '“';
+    position: absolute;
+    left: 1rem;
+    top: -1rem;
+    font-family: var(--font-heading);
+    font-size: clamp(6rem, 16vw, 12rem);
+    line-height: 1;
+    color: rgba(194, 27, 37, 0.14);
+  }
+
+  .quote-mark {
+    font-size: clamp(2.2rem, 7vw, 6rem);
+    max-width: 14ch;
+    margin-bottom: 1rem;
+  }
+
+  .stars {
+    letter-spacing: 0.18em;
+    color: var(--optima-red);
+    font-weight: 700;
+  }
+
+  .geography .locations {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .geography .locations a {
+    display: inline-flex;
+    width: fit-content;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 7vw, 6.1rem);
+    line-height: 1;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+  }
+
+  .geography .locations a:hover {
+    border-bottom-color: var(--optima-red);
+    color: var(--optima-red);
+  }
+
+  .geo-foot {
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+
+  .final-cta {
+    padding: 7rem 0;
+    background: var(--optima-grey-dark);
+    color: var(--optima-white);
+    border-top: 1px solid var(--optima-blue);
+    position: relative;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--optima-red), var(--optima-blue));
+  }
+
+  .final-cta h2,
+  .final-cta p,
+  .final-cta a {
+    color: var(--optima-white);
+  }
+
+  .final-cta h2 {
+    font-size: clamp(2.6rem, 8vw, 7rem);
+    max-width: 8ch;
+    margin-bottom: 1.3rem;
+  }
+
+  .final-link {
+    margin-top: 0.6rem;
+    color: var(--optima-red);
+  }
+
+  .hero-inner h1 span,
+  .problem h2,
+  .featured h2,
+  .responsible h2,
+  .final-cta h2 {
+    position: relative;
+  }
+
+  .hero-inner h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 3px;
+    margin-top: 1rem;
+    background: var(--optima-red);
+  }
+
+  @media (max-width: 1100px) {
+    .proof-line {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 0.9rem 0;
+      row-gap: 0.7rem;
+    }
+
+    .proof-line span::after {
+      display: none;
+    }
+
+    .problem-grid,
+    .featured-grid,
+    .service-index-grid,
+    .probate-grid,
+    .process-grid,
+    .responsible-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pro-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 860px) {
+    .cinematic-hero {
+      min-height: 82vh;
+    }
+
+    .hero-inner {
+      padding-top: 7rem;
+      padding-bottom: 2.6rem;
+    }
+
+    .hero-inner h1 {
+      max-width: 11ch;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .principle-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .pair-head,
+    .pair-images {
+      grid-template-columns: 1fr;
+    }
+
+    .pro-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .responsible ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const rows = document.querySelectorAll('.service-index a[data-preview]');
+  const preview = document.getElementById('service-preview-image');
+
+  if (preview && rows.length) {
+    for (const row of rows) {
+      row.addEventListener('mouseenter', () => {
+        const image = row.getAttribute('data-preview');
+        const alt = row.getAttribute('data-alt');
+        if (!image) return;
+        preview.setAttribute('src', image);
+        preview.setAttribute('alt', alt ?? 'Service image placeholder');
+        rows.forEach((item) => item.classList.remove('active'));
+        row.classList.add('active');
+      });
+    }
+  }
+</script>

@@ -1,0 +1,19 @@
+{
+  "name": "optima-transport",
+  "version": "1.0.0",
+  "description": "Optima Transport website built with Astro",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "astro": "^7.2.2"
+  }
+}

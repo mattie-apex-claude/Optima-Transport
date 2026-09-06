@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Get a Free Clearance Quote | Optima Transport"
+  description="Get a free clearance quote from Optima Transport. Our enquiry system is being prepared and will be connected soon."
+  canonicalPath="/quote"
+>
+  <section class="quote-holding" aria-labelledby="quote-title">
+    <div class="container holding-shell">
+      <div class="holding-copy">
+        <p class="eyebrow">Get a Free Clearance Quote</p>
+        <h1 id="quote-title">Quote Form Coming Here.</h1>
+        <p>
+          Tell us about the property and we'll help you work out exactly what needs clearing.
+        </p>
+        <div class="holding-actions">
+          <a class="btn btn-primary" href="tel:+441134001234">Call Optima</a>
+          <a class="link-arrow" href="/house-clearances">Explore House Clearances <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="holding-panel" aria-hidden="true">
+        <div class="panel-topline"></div>
+        <div class="panel-body">
+          <span>Quote form coming here</span>
+          <span>Connection to the enquiry system will follow</span>
+        </div>
+        <div class="panel-rule"></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .quote-holding {
+    min-height: calc(100vh - 76px);
+    display: grid;
+    align-items: center;
+    padding: 6rem 0 7rem;
+    background:
+      linear-gradient(90deg, rgba(194, 27, 37, 0.08) 0 1px, transparent 1px 100%),
+      linear-gradient(180deg, rgba(8, 85, 140, 0.06) 0 1px, transparent 1px 100%),
+      var(--optima-off-white);
+    background-size: 1.1rem 1.1rem, 1.1rem 1.1rem, auto;
+  }
+
+  .holding-shell {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  .holding-copy {
+    display: grid;
+    align-content: center;
+    gap: 0.9rem;
+    padding: 2rem 0;
+  }
+
+  .holding-copy h1 {
+    max-width: 11ch;
+    font-size: clamp(3rem, 7vw, 6.6rem);
+  }
+
+  .holding-copy p {
+    font-size: 1.08rem;
+    max-width: 34ch;
+  }
+
+  .holding-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .holding-panel {
+    border: 1px solid var(--optima-border);
+    background: rgba(255, 255, 255, 0.74);
+    backdrop-filter: blur(2px);
+    display: grid;
+    grid-template-rows: 1px 1fr 1px;
+    min-height: 34rem;
+  }
+
+  .panel-topline,
+  .panel-rule {
+    background: var(--optima-blue);
+  }
+
+  .panel-body {
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    padding: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--optima-grey);
+  }
+
+  .panel-body span:first-child {
+    color: var(--optima-red);
+    font-size: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .quote-holding {
+      min-height: auto;
+      padding: 5rem 0 6rem;
+    }
+
+    .holding-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .holding-panel {
+      min-height: 18rem;
+    }
+  }
+</style>

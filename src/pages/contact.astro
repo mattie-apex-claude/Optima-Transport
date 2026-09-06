@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Contact Optima Transport | House Clearance Enquiries"
+  description="Contact Optima Transport for house clearance, probate clearance, landlord clearance, removals and transport enquiries across Yorkshire."
+  canonicalPath="/contact"
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Talk To Optima About Your Property Clearance"
+    intro="For new enquiries, the quickest route is the quote form so we can gather your property details, clearance scope and access requirements properly."
+    primaryCtaHref="/quote"
+    primaryCtaLabel="Go To Quote Form"
+  />
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Call Optima</h2>
+        <p><a href="tel:+441134001234">0113 400 1234</a></p>
+        <p class="helper">Placeholder number. Replace with live business contact.</p>
+      </article>
+
+      <article class="card">
+        <h2>Email</h2>
+        <p><a href="mailto:hello@optimatransport.co.uk">hello@optimatransport.co.uk</a></p>
+        <p class="helper">Placeholder email. Replace with live business email.</p>
+      </article>
+
+      <article class="card">
+        <h2>Service Area</h2>
+        <p>Yorkshire house clearances, with supporting removals and wider coverage where required.</p>
+      </article>
+
+      <article class="card">
+        <h2>Best Way To Enquire</h2>
+        <p>
+          Use the <a href="/quote">quote page</a> so we can assess property type, clearance scope, access and retained
+          items in one place.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

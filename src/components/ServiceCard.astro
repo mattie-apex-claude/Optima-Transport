@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  body: string;
+  href: string;
+  featured?: boolean;
+}
+
+const { title, body, href, featured = false } = Astro.props;
+---
+
+<article class={`card service-card ${featured ? 'featured' : ''}`}>
+  <h3>{title}</h3>
+  <p>{body}</p>
+  <a href={href} class="service-link">Find out more</a>
+</article>
+
+<style>
+  .service-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card h3 {
+    color: var(--colour-brand-deep);
+  }
+
+  .service-link {
+    margin-top: auto;
+    font-weight: 700;
+    color: var(--colour-brand);
+  }
+
+  .featured {
+    border-color: #8eb7cc;
+    background: linear-gradient(170deg, #ffffff 0%, #f1f8fc 100%);
+  }
+</style>

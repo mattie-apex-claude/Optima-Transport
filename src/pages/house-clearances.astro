@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import QuoteCTA from '../components/QuoteCTA.astro';
+
+const processSteps = [
+  {
+    title: 'Property Details',
+    detail: 'Tell us about the property, rooms, access and what type of clearance is required.'
+  },
+  {
+    title: 'Clear Quotation',
+    detail: 'We scope the work and provide a clear quote for the agreed clearance scope.'
+  },
+  {
+    title: 'Retention Plan',
+    detail: 'You identify items to keep, deliver elsewhere or leave in place.'
+  },
+  {
+    title: 'Clearance Day',
+    detail: 'We complete the agreed removal work and handle contents through responsible routes.'
+  },
+  {
+    title: 'Property Ready',
+    detail: 'The property is left cleared to support sale, letting, refurbishment or handover.'
+  }
+];
+---
+
+<BaseLayout
+  title="House Clearances Across Yorkshire | Optima Transport"
+  description="Full and partial house clearances across Yorkshire, including probate, landlord and bulky item clearances with clear quotations and professional handling."
+  canonicalPath="/house-clearances"
+>
+  <PageHero
+    eyebrow="House Clearances"
+    title="Complete Property Clearances, Planned And Delivered Properly"
+    intro="Optima carries out full and partial house clearances across Yorkshire for homeowners, families and property professionals. You decide what stays, and we handle the agreed clearance work."
+    primaryCtaLabel="Get a Free Clearance Quote"
+    imageAriaLabel="Placeholder for real Optima house clearance project photograph"
+    imageAlt="Placeholder: real Optima team carrying out a full property clearance"
+  />
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="panel">
+        <h2>Full House Clearances</h2>
+        <p>
+          Suitable for entire properties that need to be emptied and prepared for sale, letting, renovation or handover.
+          We agree scope in advance and complete the clearance professionally.
+        </p>
+      </article>
+      <article class="panel">
+        <h2>Partial Property Clearances</h2>
+        <p>
+          If only selected rooms or sections need clearing, we can focus on the agreed areas and leave the rest
+          untouched.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head">
+        <h2>What We Can Clear</h2>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>Furniture Removal</h3><p>Remove unwanted furniture from full homes or selected rooms.</p></article>
+        <article class="card"><h3>Appliance Removal</h3><p>Remove agreed household appliances and white goods as part of clearance scope.</p></article>
+        <article class="card"><h3>Lofts And Garages</h3><p>Clear lofts, garages and storage spaces where agreed during quoting.</p></article>
+        <article class="card"><h3>Outbuildings</h3><p>Include sheds and agreed outbuildings in wider property clearance projects.</p></article>
+        <article class="card"><h3>Bulky Items</h3><p>Handle larger and awkward items with planned access and safe handling.</p></article>
+        <article class="card"><h3>Final Sweep-Through</h3><p>Property sweep-through after clearance so spaces are left clear to agreed standard.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container panel">
+      <div class="section-head">
+        <h2>Retained Belongings</h2>
+        <p>
+          Before work starts, you confirm what stays. We separate retained items from clearance items and can discuss
+          transport of kept belongings where required.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container panel">
+      <div class="section-head">
+        <h2>Responsible Disposal Approach</h2>
+        <p>
+          Optima aims to route cleared contents responsibly through reuse, donation where appropriate, recycling and
+          responsible disposal channels. Verified operational details can be added as they are confirmed.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>How Quotations Work</h2>
+        <p>
+          Quotes are based on property size, scope, item volume, additional areas and access conditions. Share photos
+          where possible to improve quoting accuracy.
+        </p>
+      </div>
+      <ProcessSteps steps={processSteps} />
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Why Choose Optima For Clearances</h2>
+        <ul class="bullets">
+          <li>Independent Yorkshire business with professional service standards</li>
+          <li>Clearance process designed for whole-property outcomes</li>
+          <li>Respectful handling of retained belongings</li>
+          <li>Clear communication throughout assessment and delivery</li>
+          <li>House removals and transport support available when needed</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Reviews Placeholder</h2>
+        <p>Add verified customer reviews for full and partial clearance projects here.</p>
+        <p><a class="btn btn-secondary" href="/quote">Get a Free Clearance Quote</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container panel">
+      <h2>Areas Covered</h2>
+      <p>
+        House clearances across Leeds, York, Harrogate, Wetherby, Tadcaster and Wakefield, with broader coverage
+        available where required.
+      </p>
+      <p><a class="btn btn-secondary" href="/areas">View Areas We Cover</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container panel">
+      <h2>House Clearance FAQs</h2>
+      <div class="faq-grid">
+        <article>
+          <h3>Do you only do full-property clearances?</h3>
+          <p>No. We also handle partial clearances and agreed area-specific jobs.</p>
+        </article>
+        <article>
+          <h3>Can we keep certain items?</h3>
+          <p>Yes. You identify retained items before clearance starts, and we work to that scope.</p>
+        </article>
+        <article>
+          <h3>Can you clear lofts, garages and sheds?</h3>
+          <p>Yes, where included in the agreed quotation scope.</p>
+        </article>
+        <article>
+          <h3>Do you also provide removals?</h3>
+          <p>Yes. House removals remain available as a secondary service where required.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <QuoteCTA
+    title="Need A House Clearance Quote?"
+    text="Share your property details and what needs to stay. We will provide a clear quote and next steps."
+  />
+</BaseLayout>
+
+<style>
+  .bullets {
+    list-style: disc;
+    margin-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  @media (max-width: 860px) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
