@@ -1,0 +1,96 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { site } from '../data/site.js';
+import '../styles/global.css';
+---
+
+<html lang="en-GB">
+  <head>
+    <SeoHead
+      title="Thank You | Optima Transport Ltd"
+      description="Thank you for contacting Optima Transport. We have received your enquiry and will be in touch shortly."
+      path="/thank-you/"
+      noindex={true}
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <section class="section thanks-page" aria-labelledby="thanks-title">
+        <div class="container thanks-container">
+          <span class="thanks-mark" aria-hidden="true">&#10003;</span>
+          <p class="eyebrow">Enquiry Received</p>
+          <h1 id="thanks-title">Thank You</h1>
+          <p id="thanks-standard">Your enquiry has been sent to the Optima Transport team. We will review the details and come back to you with a fixed price as soon as we can.</p>
+          <p id="thanks-visit" hidden>Your enquiry has been sent to the Optima Transport team. To make sure your quotation is accurate, Ryan will contact you to arrange a convenient time for a home visit.</p>
+          <p>Need to add something or have an urgent job? Call <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+          <div class="thanks-actions">
+            <a class="btn btn-primary" href="/">Back To Homepage</a>
+            <a class="btn btn-outline-dark" href="/services/">View Our Services</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <script is:inline>
+      try {
+        if (sessionStorage.getItem('optima-home-visit') === '1') {
+          document.getElementById('thanks-standard').hidden = true;
+          document.getElementById('thanks-visit').hidden = false;
+        }
+      } catch (e) {
+        /* default wording stays */
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  .thanks-page {
+    background: var(--off-white);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .thanks-container {
+    max-width: 40rem;
+    text-align: center;
+  }
+
+  .thanks-container p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .thanks-container a:not(.btn) {
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .thanks-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--white);
+    font-size: 1.6rem;
+  }
+
+  .thanks-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+</style>

@@ -1,0 +1,94 @@
+<div class="mobile-cta-bar" id="mobile-cta-bar">
+  <a class="mobile-cta-btn mobile-cta-quote" href="/contact/">Get a Quote</a>
+  <a class="mobile-cta-btn mobile-cta-consult" href="/contact/">Book Consultation</a>
+</div>
+
+<script>
+  const bar = document.getElementById('mobile-cta-bar');
+  let lastScrollY = window.scrollY;
+
+  const onScroll = () => {
+    if (!bar) return;
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > lastScrollY + 4;
+    const scrollingUp = currentScrollY < lastScrollY - 4;
+
+    if (scrollingDown && currentScrollY > 120) {
+      bar.classList.add('is-hidden');
+    } else if (scrollingUp || currentScrollY < 120) {
+      bar.classList.remove('is-hidden');
+    }
+    lastScrollY = currentScrollY;
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+<style>
+  .mobile-cta-bar {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .mobile-cta-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 150;
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom));
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -8px 24px rgba(24, 24, 26, 0.08);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-cta-bar.is-hidden {
+      transform: translateY(100%);
+    }
+
+    .mobile-cta-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      padding: 0.85rem 0.5rem;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .mobile-cta-btn:active {
+      transform: scale(0.97);
+    }
+
+    .mobile-cta-quote {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .mobile-cta-consult {
+      background: var(--off-white);
+      color: var(--charcoal);
+      border: 1px solid var(--border);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-cta-bar,
+    .mobile-cta-btn {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,235 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import '../styles/global.css';
+---
+
+<html lang="en-GB">
+  <head>
+    <SeoHead
+      title="Book A Consultation | Optima Transport Ltd"
+      description="Book a call back with Optima Transport to talk through your removal, clearance or haulage job."
+      path="/consultation/"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <section class="section quote-page">
+        <div class="container quote-container">
+          <div class="section-head">
+            <p class="eyebrow">Book A Consultation</p>
+            <h1>Talk It Through With Our Team</h1>
+            <p>Leave your details and a member of the Optima team will call you back to discuss your job.</p>
+          </div>
+
+          <div class="quote-card">
+            <form id="consultation-form" novalidate>
+              <div class="quote-step is-active" data-step="1">
+                <label class="field">
+                  <span>Full name</span>
+                  <input type="text" name="name" data-cfield="name" autocomplete="name" />
+                  <span class="field-error" data-cerror="name"></span>
+                </label>
+                <label class="field">
+                  <span>Phone number</span>
+                  <input type="tel" name="phone" data-cfield="phone" autocomplete="tel" />
+                  <span class="field-error" data-cerror="phone"></span>
+                </label>
+                <label class="field">
+                  <span>Preferred day</span>
+                  <input type="date" name="day" data-cfield="day" />
+                  <span class="field-error" data-cerror="day"></span>
+                </label>
+                <label class="field">
+                  <span>Preferred time</span>
+                  <select name="time" data-cfield="time">
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="quote-step quote-step-confirm" data-step="2">
+                <div class="quote-confirm">
+                  <span class="quote-confirm-mark">&#10003;</span>
+                  <h2>Consultation Requested</h2>
+                  <p>Thanks<span data-cconfirm-name></span>. A member of the Optima team will call you on your preferred day to confirm a time that suits you.</p>
+                  <a class="btn btn-outline-dark" href="/">Back To Homepage</a>
+                </div>
+              </div>
+
+              <div class="quote-actions">
+                <button type="button" class="btn btn-primary" id="consultation-submit">Request Call Back</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <script>
+      const consultationForm = document.getElementById('consultation-form') as HTMLFormElement;
+      const consultationSubmit = document.getElementById('consultation-submit') as HTMLButtonElement;
+
+      function setCError(field: string, message: string) {
+        const el = consultationForm.querySelector(`[data-cerror="${field}"]`);
+        if (el) el.textContent = message || '';
+      }
+
+      consultationSubmit.addEventListener('click', () => {
+        const nameInput = consultationForm.querySelector('[data-cfield="name"]') as HTMLInputElement;
+        const phoneInput = consultationForm.querySelector('[data-cfield="phone"]') as HTMLInputElement;
+        const dayInput = consultationForm.querySelector('[data-cfield="day"]') as HTMLInputElement;
+        let valid = true;
+
+        if (!nameInput.value.trim()) {
+          setCError('name', 'Please enter your name.');
+          valid = false;
+        } else {
+          setCError('name', '');
+        }
+
+        if (phoneInput.value.replace(/\D/g, '').length < 7) {
+          setCError('phone', 'Please enter a valid phone number.');
+          valid = false;
+        } else {
+          setCError('phone', '');
+        }
+
+        if (!dayInput.value) {
+          setCError('day', 'Please choose a preferred day.');
+          valid = false;
+        } else {
+          setCError('day', '');
+        }
+
+        if (!valid) return;
+
+        const confirmName = consultationForm.querySelector('[data-cconfirm-name]');
+        if (confirmName) confirmName.textContent = nameInput.value.trim() ? `, ${nameInput.value.trim()}` : '';
+
+        consultationForm.querySelector('[data-step="1"]')?.classList.remove('is-active');
+        consultationForm.querySelector('[data-step="2"]')?.classList.add('is-active');
+        consultationSubmit.hidden = true;
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .quote-page {
+    background: var(--off-white);
+    min-height: 70vh;
+  }
+
+  .quote-container {
+    max-width: 40rem;
+  }
+
+  .quote-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 24px rgba(24, 24, 26, 0.08);
+  }
+
+  .quote-step {
+    display: none;
+  }
+
+  .quote-step.is-active {
+    display: block;
+  }
+
+  .field {
+    display: block;
+    margin-bottom: 1.1rem;
+  }
+
+  .field span:first-child {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible {
+    outline: none;
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(200, 32, 43, 0.15);
+  }
+
+  .field-error {
+    display: block;
+    min-height: 1.1rem;
+    color: var(--red);
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+
+  .quote-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .quote-confirm {
+    text-align: center;
+    padding: 1.5rem 0 0.5rem;
+  }
+
+  .quote-confirm-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .quote-confirm .btn {
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 560px) {
+    .quote-card {
+      padding: 2rem 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .field input,
+    .field select {
+      transition: none;
+    }
+  }
+</style>

@@ -1,14 +1,1108 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCtaBar from '../components/MobileCtaBar.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { localBusinessSchema } from '../data/schema.js';
+import { recentMoves } from '../data/recentMoves.js';
+import { homepageReviews } from '../data/reviews.js';
+import { site } from '../data/site.js';
+import GoogleWordmark from '../components/GoogleWordmark.astro';
+import { faqs } from '../data/faqs.js';
+import { photo } from '../data/photos.js';
 import '../styles/global.css';
+
+const heroPhoto = photo('optima-van-open-doors-residential-street');
+
+const coreServices = [
+  {
+    name: 'House Removals',
+    image: photo('house-removals-loading-household-furniture'),
+    alt: 'Optima Transport removals crew member loading household furniture and cushions into a van for a house move',
+    href: '/removals/house-removals/',
+    pos: '50% 45%'
+  },
+  {
+    name: 'Commercial Removals',
+    image: photo('commercial-removals-wrapped-white-furniture-units-van'),
+    alt: 'Wrapped white cabinet and drawer units loaded in an Optima Transport van for a commercial removal',
+    href: '/removals/office-and-commercial-removals/',
+    pos: '50% 50%'
+  },
+  {
+    name: 'Domestic Clearances',
+    image: photo('house-clearance-trolley-removal-from-property'),
+    alt: 'Optima Transport team member wheeling items out of a property on a sack truck during a domestic clearance',
+    href: '/clearances/domestic-clearances/',
+    pos: '50% 50%'
+  },
+  {
+    name: 'Commercial Clearances',
+    image: photo('commercial-clearance-van-business-premises'),
+    alt: 'Optima Transport van listing house and office clearances parked at a commercial building',
+    href: '/clearances/commercial-clearances/',
+    pos: '70% 35%'
+  },
+  {
+    name: 'Waste Removals',
+    image: photo('waste-removal-old-paving-slabs-timber-collection'),
+    alt: 'Old paving slabs and timber stacked outside a house ready for waste removal by Optima Transport',
+    href: '/clearances/',
+    pos: '50% 60%'
+  },
+  {
+    name: 'Haulage',
+    image: photo('long-haulage-wrapped-oak-furniture-units'),
+    alt: 'Shrink-wrapped oak furniture units loaded in an Optima Transport van for haulage',
+    href: '/haulage/',
+    pos: '50% 55%'
+  }
+];
+
+const whyPhotos = {
+  dedicated: photo('optima-branded-van-side-profile'),
+  fixed: photo('fragile-boxes-careful-packing-van-load'),
+  careful: photo('careful-handling-blankets-furniture-protection'),
+  nationwide: photo('optima-van-nationwide-road'),
+  communication: photo('optima-van-service-livery-side')
+};
 ---
 
 <html lang="en-GB">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Optima Transport</title>
+    <SeoHead
+      title="Optima Transport Ltd | Removals, Haulage & Clearances"
+      description="Optima Transport Ltd provides professional removals, nationwide haulage and property clearance services for domestic and commercial customers."
+      path="/"
+      schema={[localBusinessSchema()]}
+    />
   </head>
   <body>
-    <h1>Hello World</h1>
+    <Header />
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" aria-labelledby="hero-title">
+        <img
+          src={heroPhoto.src}
+          srcset={heroPhoto.srcset}
+          sizes="100vw"
+          alt="Optima Transport branded removals van with rear doors open on a residential street"
+          class="hero-media"
+          width={heroPhoto.width}
+          height={heroPhoto.height}
+          style="object-position:50% 62%"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div class="hero-overlay"></div>
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow hero-eyebrow">Domestic &amp; Commercial Transport</p>
+            <h1 id="hero-title">Removals.<br />Haulage.<br />Clearances.</h1>
+            <p class="hero-copy-text">
+              Optima Transport Ltd provides professional transport services for domestic and commercial customers,
+              covering house and office moves, nationwide haulage and property clearances.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+              <a class="btn btn-outline-light" href="/services">View Services</a>
+            </div>
+          </div>
+          <div class="hero-services-grid">
+            {coreServices.map((service) => (
+              <a
+                class="oservice-card"
+                href={service.href}
+                aria-label={service.name}
+              >
+                <span class="oservice-media">
+                  <img
+                    src={service.image.src}
+                    srcset={service.image.srcset}
+                    sizes="(max-width: 640px) 46vw, (max-width: 900px) 30vw, 260px"
+                    alt={service.alt}
+                    width={service.image.width}
+                    height={service.image.height}
+                    style={`object-position:${service.pos}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+                <span class="oservice-strip">
+                  <span class="oservice-name">{service.name}</span>
+                  <span class="oservice-arrow" aria-hidden="true">→</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- TRUST / POSITIONING -->
+      <section class="section-tight trust-strip reveal" aria-label="What Optima offers">
+        <div class="container trust-row">
+          <div>
+            <h3>Domestic &amp; Commercial</h3>
+            <p>Work for homeowners and businesses alike, under one professional service.</p>
+          </div>
+          <div>
+            <h3>Professional Service</h3>
+            <p>Clear communication and careful handling on every job.</p>
+          </div>
+          <div>
+            <h3>Reliable Transport</h3>
+            <p>Dependable scheduling so customers know what to expect.</p>
+          </div>
+          <div>
+            <h3>Nationwide Capability</h3>
+            <p>Local jobs and longer-distance haulage across the country.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW OPTIMA WORKS -->
+      <section class="section how-it-works" aria-labelledby="how-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">How It Works</p>
+            <h2 id="how-title">How Optima Works</h2>
+          </div>
+          <ol class="steps-row">
+            {[
+              { step: '01', title: 'Tell us what you need', copy: 'Share the details of your move, clearance or haulage job in a couple of minutes.' },
+              { step: '02', title: 'Get your fixed quote', copy: 'We provide a clear, fixed price up front, so there are no surprises on the day.' },
+              { step: '03', title: 'Choose your date', copy: 'Pick a date that works for you and we will lock in the booking.' },
+              { step: '04', title: 'We handle the rest', copy: 'Our team arrives on time and takes care of everything professionally.' }
+            ].map((item, index) => (
+              <li class="step-card reveal" style={`transition-delay:${index * 0.12}s`}>
+                <span class="step-number">{item.step}</span>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- RECENT MOVES -->
+      <section class="section recent-moves" aria-labelledby="recent-moves-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Recent Moves</p>
+            <h2 id="recent-moves-title">Some of our recent jobs</h2>
+          </div>
+          <div class="moves-grid">
+            {recentMoves.map((job, index) => (
+              <a class="move-card reveal" href={job.href} style={`transition-delay:${index * 0.1}s`}>
+                <div class="move-media">
+                  <img
+                    src={job.image.src}
+                    srcset={job.image.srcset}
+                    sizes="(max-width: 640px) 100vw, (max-width: 900px) 48vw, 300px"
+                    alt={job.alt}
+                    width={job.image.width}
+                    height={job.image.height}
+                    style={`object-position:${job.pos ?? '50% 50%'}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="move-body">
+                  <span class="move-route">{job.route}</span>
+                  <span class="move-service">{job.service}</span>
+                  <p class="move-description">{job.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY OPTIMA -->
+      <section class="section why" aria-labelledby="why-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Why Optima</p>
+            <h2 id="why-title">Service You Can Trust</h2>
+          </div>
+          <div class="why-panels">
+            <article class="why-panel why-panel-large reveal">
+              <img
+                src={whyPhotos.dedicated.src}
+                srcset={whyPhotos.dedicated.srcset}
+                sizes="(min-width: 901px) 600px, (min-width: 641px) 92vw, 100vw"
+                alt="Optima Transport branded van parked on a cobbled quayside, ready for a dedicated removals job"
+                width={whyPhotos.dedicated.width}
+                height={whyPhotos.dedicated.height}
+                style="object-position:50% 55%"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="why-panel-overlay"></div>
+              <div class="why-panel-copy">
+                <h3>Dedicated Transport</h3>
+                <p>Your own vehicle and crew for the job, not shared space with other customers' belongings.</p>
+              </div>
+            </article>
+            <article class="why-panel reveal">
+              <img
+                src={whyPhotos.fixed.src}
+                srcset={whyPhotos.fixed.srcset}
+                sizes="(min-width: 901px) 300px, (min-width: 641px) 46vw, 100vw"
+                alt="Neatly stacked fragile-labelled boxes packed securely in an Optima Transport van"
+                width={whyPhotos.fixed.width}
+                height={whyPhotos.fixed.height}
+                style="object-position:50% 50%"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="why-panel-overlay"></div>
+              <div class="why-panel-copy">
+                <h3>Fixed-Price Quotations</h3>
+                <p>A clear price agreed before the job starts, with no hidden costs on the day.</p>
+              </div>
+            </article>
+            <article class="why-panel reveal">
+              <img
+                src={whyPhotos.careful.src}
+                srcset={whyPhotos.careful.srcset}
+                sizes="(min-width: 901px) 300px, (min-width: 641px) 46vw, 100vw"
+                alt="Optima Transport crew member carefully laying protective blankets over furniture in the van"
+                width={whyPhotos.careful.width}
+                height={whyPhotos.careful.height}
+                style="object-position:50% 60%"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="why-panel-overlay"></div>
+              <div class="why-panel-copy">
+                <h3>Careful Handling</h3>
+                <p>Every item treated with the care it deserves, from first box to last.</p>
+              </div>
+            </article>
+            <article class="why-panel reveal">
+              <img
+                src={whyPhotos.nationwide.src}
+                srcset={whyPhotos.nationwide.srcset}
+                sizes="(min-width: 901px) 300px, (min-width: 641px) 46vw, 100vw"
+                alt="Optima Transport van on the road, ready for nationwide haulage and removals"
+                width={whyPhotos.nationwide.width}
+                height={whyPhotos.nationwide.height}
+                style="object-position:50% 50%"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="why-panel-overlay"></div>
+              <div class="why-panel-copy">
+                <h3>Nationwide Capability</h3>
+                <p>Local removals and longer-distance haulage handled under one dependable service.</p>
+              </div>
+            </article>
+            <article class="why-panel why-panel-large reveal">
+              <img
+                src={whyPhotos.communication.src}
+                srcset={whyPhotos.communication.srcset}
+                sizes="(min-width: 901px) 600px, (min-width: 641px) 92vw, 100vw"
+                alt="Side of an Optima Transport van showing the company logo and list of services"
+                width={whyPhotos.communication.width}
+                height={whyPhotos.communication.height}
+                style="object-position:50% 40%"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="why-panel-overlay"></div>
+              <div class="why-panel-copy">
+                <h3>Reliable Communication</h3>
+                <p>Clear updates before, during and after every job, so you always know what to expect.</p>
+              </div>
+            </article>
+          </div>
+          <p class="why-insured reveal">Fully insured service on every job, for complete peace of mind.</p>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="section reviews" aria-labelledby="reviews-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Reviews</p>
+            <h2 id="reviews-title">What Our Customers Say</h2>
+            <p class="reviews-source"><GoogleWordmark /> reviews from customers we have worked for</p>
+          </div>
+          <div class="reviews-carousel reveal">
+            <button class="review-arrow review-arrow-prev" type="button" aria-label="Previous review">&larr;</button>
+            <div class="reviews-track" id="reviews-track" tabindex="0" aria-label="Customer reviews">
+              {homepageReviews.map((review) => (
+                <article class="review-card">
+                  <span class="review-mark" aria-hidden="true">&ldquo;</span>
+                  <p class="review-quote">{review.quote}</p>
+                  <p class="review-meta"><strong>{review.name}</strong><span class="review-via">Google review</span></p>
+                </article>
+              ))}
+            </div>
+            <button class="review-arrow review-arrow-next" type="button" aria-label="Next review">&rarr;</button>
+          </div>
+          {site.googleReviewsUrl && (
+            <p class="reviews-cta reveal">
+              <a class="btn btn-outline-dark" href={site.googleReviewsUrl} target="_blank" rel="noopener noreferrer">Read Our Google Reviews</a>
+            </p>
+          )}
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section faq" aria-labelledby="faq-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">FAQ</p>
+            <h2 id="faq-title">Frequently Asked Questions</h2>
+          </div>
+          <div class="faq-list reveal">
+            {faqs.map((item, index) => (
+              <div class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls={`faq-answer-${index}`} id={`faq-question-${index}`}>
+                  <span>{item.question}</span>
+                  <span class="faq-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div class="faq-answer" id={`faq-answer-${index}`} role="region" aria-labelledby={`faq-question-${index}`}>
+                  <p>{item.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="final-cta reveal" aria-labelledby="final-cta-title">
+        <div class="container">
+          <h2 id="final-cta-title">Let's Get Your Move Organised</h2>
+          <p>Get a fixed price online in minutes, or book a call with our team to talk through your job.</p>
+          <div class="final-cta-actions">
+            <a class="btn btn-primary" href="/contact/">Get A Quote Online</a>
+            <a class="btn btn-outline-light" href="/contact/">Book A Consultation</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+    <MobileCtaBar />
+
+    <script>
+      const revealEls = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.15 }
+      );
+      revealEls.forEach((el) => observer.observe(el));
+
+      /* FAQ ACCORDION */
+      document.querySelectorAll('.faq-question').forEach((button) => {
+        button.addEventListener('click', () => {
+          const answerId = button.getAttribute('aria-controls');
+          const answer = answerId ? document.getElementById(answerId) : null;
+          const faqItem = button.closest('.faq-item');
+          if (!answer || !faqItem) return;
+          const isOpen = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!isOpen));
+          answer.style.maxHeight = isOpen ? '' : `${answer.scrollHeight}px`;
+          faqItem.classList.toggle('is-open', !isOpen);
+        });
+      });
+
+      /* REVIEWS CAROUSEL */
+      const reviewsTrack = document.getElementById('reviews-track');
+      const prevBtn = document.querySelector('.review-arrow-prev');
+      const nextBtn = document.querySelector('.review-arrow-next');
+
+      if (reviewsTrack && prevBtn && nextBtn) {
+        const scrollByCard = (direction: number) => {
+          const card = reviewsTrack.querySelector('.review-card');
+          if (!card) return;
+          const amount = card.getBoundingClientRect().width + 24;
+          reviewsTrack.scrollBy({ left: amount * direction, behavior: 'smooth' });
+        };
+        prevBtn.addEventListener('click', () => scrollByCard(-1));
+        nextBtn.addEventListener('click', () => scrollByCard(1));
+      }
+    </script>
   </body>
 </html>
+
+<style>
+  .sr-only-heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .section-head {
+    margin-bottom: 3rem;
+    max-width: 46ch;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: start;
+    overflow: hidden;
+    background: var(--charcoal-deep);
+  }
+
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(24, 24, 26, 0.9) 10%, rgba(24, 24, 26, 0.72) 42%, rgba(24, 24, 26, 0.45) 100%);
+  }
+
+  .hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  }
+
+  .hero-copy {
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-eyebrow {
+    color: #ff6a72;
+  }
+
+  .hero h1 {
+    color: var(--white);
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-copy-text {
+    color: #e7e5e6;
+    font-size: clamp(1rem, 1.4vw, 1.1rem);
+    max-width: 40ch;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .hero-services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
+    align-content: center;
+  }
+
+  /* TRUST STRIP */
+  .trust-strip {
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trust-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .trust-row > div {
+    border-left: 2px solid var(--red);
+    padding-left: 1rem;
+  }
+
+  .trust-row h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .trust-row p {
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  /* HERO SERVICE CARDS */
+  .oservice-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 14px 30px rgba(0, 0, 0, 0.22);
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  }
+
+  .oservice-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 4.4;
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+
+  .oservice-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(var(--zoom, 1));
+    transform-origin: var(--origin, 50% 50%);
+    transition: transform 0.9s var(--ease);
+  }
+
+  .oservice-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(24, 24, 26, 0) 60%, rgba(24, 24, 26, 0.28) 100%);
+    pointer-events: none;
+  }
+
+  .oservice-strip {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    height: 4.25rem;
+    padding: 0 1.1rem 0 1.25rem;
+    background: var(--white);
+  }
+
+  .oservice-strip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.5s var(--ease);
+  }
+
+  .oservice-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+    text-wrap: balance;
+  }
+
+  .oservice-arrow {
+    flex-shrink: 0;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: var(--red);
+    transition: transform 0.4s var(--ease);
+  }
+
+  .oservice-card:hover,
+  .oservice-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.14), 0 26px 46px rgba(0, 0, 0, 0.32);
+  }
+
+  .oservice-card:hover .oservice-media img,
+  .oservice-card:focus-visible .oservice-media img {
+    transform: scale(calc(var(--zoom, 1) + 0.05));
+  }
+
+  .oservice-card:hover .oservice-strip::before,
+  .oservice-card:focus-visible .oservice-strip::before {
+    width: 100%;
+  }
+
+  .oservice-card:hover .oservice-arrow,
+  .oservice-card:focus-visible .oservice-arrow {
+    transform: translateX(4px);
+  }
+
+  .oservice-card:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+  }
+
+  /* HOW OPTIMA WORKS */
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+    counter-reset: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .steps-row::before {
+    content: '';
+    position: absolute;
+    top: 1.4rem;
+    left: 6%;
+    right: 6%;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .step-card {
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    margin-bottom: 1.25rem;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--red);
+    color: var(--red);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  .step-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-card p {
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  /* RECENT MOVES */
+  .moves-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .move-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease), opacity 0.8s var(--ease);
+  }
+
+  .move-card:hover,
+  .move-card:focus-visible {
+    transform: translateY(-4px);
+    border-color: transparent;
+    box-shadow: var(--shadow-md);
+  }
+
+  .move-media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .move-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease);
+  }
+
+  .move-card:hover .move-media img,
+  .move-card:focus-visible .move-media img {
+    transform: scale(1.04);
+  }
+
+  .move-body {
+    padding: 1.35rem 1.4rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .move-route {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .move-service {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin-top: 0.35rem;
+  }
+
+  .move-description {
+    font-size: 0.9rem;
+    margin: 0.7rem 0 0;
+  }
+
+  /* WHY OPTIMA */
+  .why {
+    background: var(--off-white);
+  }
+
+  .why-panels {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 14rem;
+    gap: 1.25rem;
+  }
+
+  .why-panel {
+    position: relative;
+    grid-column: span 1;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.5s var(--ease), transform 0.8s var(--ease), opacity 0.8s var(--ease);
+  }
+
+  .why-panel:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .why-panel-large {
+    grid-column: span 2;
+  }
+
+  .why-panel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease);
+  }
+
+  .why-panel:hover img {
+    transform: scale(1.04);
+  }
+
+  .why-panel-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(24, 24, 26, 0.82) 0%, rgba(24, 24, 26, 0.15) 60%);
+  }
+
+  .why-panel-copy {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.25rem 1.4rem;
+    color: var(--white);
+  }
+
+  .why-panel-copy h3 {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .why-panel-copy p {
+    color: #e7e5e6;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .why-insured {
+    margin: 2rem 0 0;
+    text-align: center;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  /* REVIEWS */
+  .reviews-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .reviews-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
+
+  .reviews-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-card {
+    position: relative;
+    flex: 0 0 min(100%, 22rem);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2.4rem 1.8rem 1.6rem;
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
+  }
+
+  .review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+    border-color: transparent;
+  }
+
+  .review-mark {
+    position: absolute;
+    top: 0.6rem;
+    left: 1.5rem;
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    line-height: 1;
+    color: var(--red);
+    opacity: 0.85;
+  }
+
+  .reviews-source {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+  }
+
+  .reviews-cta {
+    margin: 2rem 0 0;
+    text-align: center;
+    max-width: none;
+  }
+
+  .review-quote {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+  }
+
+  .review-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .review-via {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey-light);
+  }
+
+  .review-arrow {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--white);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+
+  .review-arrow:hover {
+    border-color: var(--red);
+    color: var(--red);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* FAQ */
+  .faq-list {
+    max-width: 48rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--charcoal);
+    cursor: pointer;
+    transition: color 0.25s ease;
+  }
+
+  .faq-question:hover {
+    color: var(--red);
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    line-height: 1;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s var(--ease);
+  }
+
+  .faq-answer p {
+    margin: 0 0 1.1rem;
+    font-size: 0.92rem;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--charcoal-deep);
+    color: var(--white);
+    padding: clamp(4rem, 9vw, 7rem) 0;
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .final-cta p {
+    color: #d9d7d8;
+    margin: 0 auto 1.75rem;
+  }
+
+  .final-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      padding: 2.5rem 0 3rem;
+      gap: 2.5rem;
+    }
+
+    .trust-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .steps-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2.25rem 2rem;
+    }
+
+    .steps-row::before {
+      display: none;
+    }
+
+    .moves-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .why-panels {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-services-grid {
+      gap: 0.75rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .oservice-strip {
+      height: 3.75rem;
+      padding: 0 0.85rem 0 1rem;
+    }
+
+    .oservice-name {
+      font-size: 0.85rem;
+    }
+
+    .trust-row,
+    .steps-row,
+    .moves-grid,
+    .why-panels {
+      grid-template-columns: 1fr;
+    }
+
+    .why-panel-large {
+      grid-column: span 1;
+    }
+
+    .hero-actions .btn {
+      flex: 1 1 100%;
+    }
+
+    .review-arrow {
+      display: none;
+    }
+
+    .review-card {
+      flex-basis: 85%;
+    }
+  }
+</style>

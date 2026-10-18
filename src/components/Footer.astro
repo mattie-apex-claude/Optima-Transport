@@ -1,0 +1,165 @@
+---
+import { nav } from '../data/services/index.js';
+import { coreAreas, site } from '../data/site.js';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <section class="footer-brand">
+      <span class="footer-logo">
+        <img src="/images/optimized/optima-logo-360.webp" alt="Optima Transport Ltd" width="72" height="72" loading="lazy" />
+      </span>
+      <p>Professional removals, haulage and clearance services for domestic and commercial customers.</p>
+    </section>
+
+    <section>
+      <h3><a href={nav.removals.page.path}>Removals</a> &amp; <a href={nav.haulage.page.path}>Haulage</a></h3>
+      <ul>
+        {nav.removals.children.map((child) => <li><a href={child.path}>{child.name}</a></li>)}
+        {nav.haulage.children.map((child) => <li><a href={child.path}>{child.name}</a></li>)}
+      </ul>
+    </section>
+
+    <section>
+      <h3><a href={nav.clearances.page.path}>Clearances</a></h3>
+      <ul>
+        {nav.clearances.groups.map((group) => <li><a href={group.page.path}>{group.page.name}</a></li>)}
+        <li><a href="/clearances/house-clearances/">House Clearances</a></li>
+        <li><a href="/clearances/office-clearances/">Office Clearances</a></li>
+        <li><a href="/clearances/warehouse-clearances/">Warehouse Clearances</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Company</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Get In Touch</h3>
+      <p class="helper">
+        <a href={site.phoneHref}>{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <a class="btn btn-outline-light" href="/contact/">Request a Quote</a>
+    </section>
+  </div>
+
+  <div class="container bottom-row">
+    <p class="areas-line">Based in Boston Spa. Serving {coreAreas.join(', ')} and surrounding Yorkshire areas, plus nationwide removals, clearances and haulage.</p>
+    <p>© {year} Optima Transport Ltd. All rights reserved.</p>
+    <p class="credit">Website and marketing by <a href="https://apexflowio.com/" target="_blank" rel="noopener">ApexFlow</a></p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 0;
+    background: var(--charcoal-deep);
+    color: #d9d7d8;
+    padding: 4rem 0 1.75rem;
+  }
+
+  .site-footer a {
+    color: #d9d7d8;
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
+    color: var(--white);
+  }
+
+  .site-footer h3 {
+    color: var(--white);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .site-footer h3 a {
+    color: var(--white);
+  }
+
+  .site-footer p {
+    color: #b5b3b4;
+  }
+
+  .footer-logo {
+    display: inline-flex;
+    background: var(--white);
+    padding: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo img {
+    height: 2.6rem;
+    width: auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1.1fr 1.1fr 0.8fr 1.1fr;
+    gap: 2rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .footer-grid ul {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .helper {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .bottom-row {
+    padding-top: 1.5rem;
+  }
+
+  .bottom-row p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #9a9899;
+  }
+
+  .bottom-row .areas-line {
+    margin-bottom: 0.5rem;
+    max-width: none;
+  }
+
+  .bottom-row .credit {
+    margin-top: 0.35rem;
+  }
+
+  .bottom-row .credit a {
+    color: #d9d7d8;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .bottom-row .credit a:hover {
+    color: var(--white);
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

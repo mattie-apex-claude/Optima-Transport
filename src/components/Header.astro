@@ -1,0 +1,571 @@
+---
+import { nav } from '../data/services/index.js';
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/services/', label: 'Services', menu: true },
+  { href: '/contact/', label: 'Contact' }
+];
+
+const shortName = (name: string) => name.replace(/ Clearances$/, '');
+
+const menuColumns = [
+  { page: nav.removals.page, items: nav.removals.children.map((page) => ({ page, note: '' })) },
+  {
+    page: nav.clearances.page,
+    items: nav.clearances.groups.map((group) => ({ page: group.page, note: group.children.map((c) => shortName(c.name)).join(' · ') }))
+  },
+  { page: nav.haulage.page, items: nav.haulage.children.map((page) => ({ page, note: '' })) }
+];
+
+const mobileGroups = [
+  { page: nav.removals.page, children: nav.removals.children },
+  { page: nav.clearances.page, children: nav.clearances.groups.map((group) => group.page) },
+  { page: nav.haulage.page, children: nav.haulage.children }
+];
+---
+
+<header class="site-header" id="site-header">
+  <div class="container nav-shell">
+    <a href="/" class="brand" aria-label="Optima Transport Ltd home">
+      <span class="brand-mark">
+        <img src="/images/optimized/optima-logo-360.webp" alt="Optima Transport Ltd" width="360" height="360" loading="eager" fetchpriority="high" />
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <ul>
+        {navItems.map((item) => (
+          item.menu ? (
+            <li class="has-menu">
+              <a href={item.href} class="menu-link">{item.label}</a>
+              <button class="menu-caret" type="button" aria-expanded="false" aria-controls="services-menu" aria-label="Show services menu">
+                <span aria-hidden="true">⌄</span>
+              </button>
+              <div class="mega-menu" id="services-menu">
+                <div class="container mega-grid">
+                  {menuColumns.map((column) => (
+                    <div class="mega-col">
+                      <a class="mega-title" href={column.page.path}>
+                        <span>{column.page.name}</span>
+                        <span class="mega-arrow" aria-hidden="true">→</span>
+                      </a>
+                      <p class="mega-blurb">{column.page.summary}</p>
+                      <ul>
+                        {column.items.map((item) => (
+                          <li>
+                            <a href={item.page.path}>
+                              <span class="mega-link-name">{item.page.name}</span>
+                              {item.note && <span class="mega-note">{item.note}</span>}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  <aside class="mega-feature">
+                    <p class="mega-feature-eyebrow">Fixed-price quotations</p>
+                    <p class="mega-feature-title">Tell us about your job</p>
+                    <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+                    <a class="mega-feature-link" href="/services/">View all services</a>
+                  </aside>
+                </div>
+              </div>
+            </li>
+          ) : (
+            <li><a href={item.href}>{item.label}</a></li>
+          )
+        ))}
+      </ul>
+    </nav>
+
+    <a class="btn btn-primary quote-btn" href="/contact/">Request a Quote</a>
+
+    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <ul>
+      {navItems.map((item) => (
+        item.menu ? (
+          <li>
+            <a href={item.href}>{item.label}</a>
+            <div class="m-groups">
+              {mobileGroups.map((group) => (
+                <details>
+                  <summary>{group.page.name}</summary>
+                  <ul>
+                    <li><a href={group.page.path}>All {group.page.name}</a></li>
+                    {group.children.map((child) => <li><a href={child.path}>{child.name}</a></li>)}
+                  </ul>
+                </details>
+              ))}
+            </div>
+          </li>
+        ) : (
+          <li><a href={item.href}>{item.label}</a></li>
+        )
+      ))}
+    </ul>
+    <a class="btn btn-primary" href="/contact/">Request a Quote</a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  const header = document.getElementById('site-header');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = mobileNav?.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  const menuItem = document.querySelector('.has-menu');
+  const menuCaret = menuItem?.querySelector('.menu-caret');
+  menuCaret?.addEventListener('click', () => {
+    const isOpen = menuItem?.classList.toggle('is-open');
+    menuCaret?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  document.addEventListener('click', (event) => {
+    if (menuItem && !menuItem.contains(event.target as Node)) {
+      menuItem.classList.remove('is-open');
+      menuCaret?.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      menuItem?.classList.remove('is-open');
+      menuCaret?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s var(--ease);
+  }
+
+  .site-header.scrolled {
+    box-shadow: 0 8px 28px rgba(24, 24, 26, 0.07);
+  }
+
+  .nav-shell {
+    min-height: 92px;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  /* Logo file has wide margins; crop to the artwork so it reads larger. */
+  .brand-mark {
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    overflow: hidden;
+  }
+
+  .brand-mark img {
+    width: 142.86%;
+    max-width: none;
+    height: auto;
+    margin: -24.3% 0 0 -21.4%;
+    mix-blend-mode: multiply;
+  }
+
+  .desktop-nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.4rem;
+  }
+
+  .desktop-nav a {
+    position: relative;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--charcoal);
+    padding-bottom: 0.3rem;
+  }
+
+  .desktop-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.4s var(--ease);
+  }
+
+  .desktop-nav a:hover::after {
+    width: 100%;
+  }
+
+  .quote-btn {
+    white-space: nowrap;
+    padding: 0.9rem 1.5rem;
+  }
+
+  /* SERVICES MEGA MENU */
+  .desktop-nav {
+    position: static;
+  }
+
+  .desktop-nav > ul > li {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .desktop-nav > ul > li > a {
+    padding-top: 0.3rem;
+  }
+
+  .has-menu {
+    position: static;
+    gap: 0.2rem;
+  }
+
+  .menu-caret {
+    padding: 0.35rem 0 0;
+    border: none;
+    background: none;
+    color: var(--charcoal);
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 30px 50px rgba(24, 24, 26, 0.12);
+    padding: 2.25rem 0 2.5rem;
+    transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.28s;
+  }
+
+  .has-menu:hover .mega-menu,
+  .has-menu:focus-within .mega-menu,
+  .has-menu.is-open .mega-menu {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  .mega-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 0.95fr);
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .mega-col {
+    padding: 0 2.5rem;
+  }
+
+  .mega-col:first-child {
+    padding-left: 0;
+  }
+
+  .mega-col + .mega-col {
+    border-left: 1px solid var(--border);
+  }
+
+  .desktop-nav .mega-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+  }
+
+  .desktop-nav .mega-title::after {
+    display: none;
+  }
+
+  .mega-arrow {
+    color: var(--red);
+    font-size: 1.1rem;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .desktop-nav .mega-title:hover .mega-arrow {
+    transform: translateX(5px);
+  }
+
+  .mega-blurb {
+    margin: 0.5rem 0 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--grey);
+    max-width: 30ch;
+  }
+
+  .mega-col ul {
+    display: grid;
+    justify-content: stretch;
+    gap: 1.1rem;
+  }
+
+  .desktop-nav .mega-col li a {
+    display: block;
+    padding: 0;
+    transition: transform 0.25s ease;
+  }
+
+  .desktop-nav .mega-col li a::after {
+    display: none;
+  }
+
+  .mega-link-name {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    transition: color 0.2s ease;
+  }
+
+  .mega-note {
+    display: block;
+    margin-top: 0.2rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--grey-light);
+  }
+
+  .desktop-nav .mega-col li a:hover {
+    transform: translateX(4px);
+  }
+
+  .desktop-nav .mega-col li a:hover .mega-link-name {
+    color: var(--red);
+  }
+
+  .mega-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 2rem 1.75rem;
+    margin-left: 1rem;
+    background: var(--charcoal-deep);
+    border-radius: 14px;
+  }
+
+  .mega-feature p {
+    margin: 0;
+    max-width: none;
+  }
+
+  .mega-feature-eyebrow {
+    margin-bottom: 0.6rem !important;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ff6a72;
+  }
+
+  .mega-feature-title {
+    margin-bottom: 1.5rem !important;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--white);
+  }
+
+  .desktop-nav .mega-feature .btn {
+    padding: 0.8rem 1.3rem;
+    font-size: 0.78rem;
+    color: var(--white);
+  }
+
+  .desktop-nav .mega-feature .btn::after,
+  .desktop-nav .mega-feature-link::after {
+    display: none;
+  }
+
+  .desktop-nav .mega-feature-link {
+    margin-top: 1.1rem;
+    padding: 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #d9d7d8;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .desktop-nav .mega-feature-link:hover {
+    color: var(--white);
+  }
+
+  /* MOBILE SERVICES GROUPS */
+  .m-groups {
+    display: grid;
+    padding: 0.25rem 0 0.5rem 0.9rem;
+  }
+
+  .m-groups summary {
+    padding: 0.55rem 0;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--grey);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .m-groups details ul {
+    padding: 0.25rem 0 0.5rem 0.9rem;
+    gap: 0;
+  }
+
+  .m-groups details a {
+    padding: 0.5rem 0;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    height: 2px;
+    margin: 0 9px;
+    background: var(--charcoal);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .menu-toggle[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-nav {
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    transition: max-height 0.3s ease;
+  }
+
+  .mobile-nav.is-open {
+    max-height: calc(100vh - 92px);
+    overflow-y: auto;
+  }
+
+  .mobile-nav ul {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.25rem 1.25rem 0.5rem;
+  }
+
+  .mobile-nav a {
+    display: block;
+    padding: 0.6rem 0;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--charcoal);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mobile-nav .btn {
+    margin: 1rem 1.25rem 1.5rem;
+    padding: 0.95rem 1.6rem;
+    color: var(--white);
+    text-align: center;
+    border-bottom: 1px solid var(--red);
+  }
+
+  @media (max-width: 900px) {
+    .desktop-nav,
+    .quote-btn {
+      display: none;
+    }
+
+    .nav-shell {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    .menu-toggle {
+      display: flex;
+      grid-column: 3;
+      justify-self: end;
+    }
+
+    .mobile-nav {
+      display: block;
+    }
+  }
+</style>

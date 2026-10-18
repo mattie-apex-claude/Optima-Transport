@@ -1,0 +1,571 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { enquiryServices } from '../data/services/index.js';
+import { site } from '../data/site.js';
+import '../styles/global.css';
+---
+
+<html lang="en-GB">
+  <head>
+    <SeoHead
+      title="Contact & Free Quote | Optima Transport Ltd"
+      description="Request a free quote from Optima Transport for removals, clearances, waste removal or haulage across Yorkshire and nationwide. Call 07956 571935 or send an enquiry online."
+      path="/contact/"
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <section class="section contact-page" aria-labelledby="contact-title">
+        <div class="container contact-container">
+          <div class="section-head">
+            <p class="eyebrow">Contact</p>
+            <h1 id="contact-title">Request a Free Quote</h1>
+            <p>Tell us about your job and the Optima team will come back to you with a fixed price. Prefer to talk? Call <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+          </div>
+
+          <div class="contact-card">
+            <noscript>
+              <p class="contact-noscript">This form needs JavaScript. Please call <a href={site.phoneHref}>{site.phone}</a> or email <a href={`mailto:${site.email}`}>{site.email}</a> instead.</p>
+            </noscript>
+
+            <form id="enquiry-form" novalidate aria-describedby="form-status">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Full name <span class="req" aria-hidden="true">*</span></label>
+                  <input id="name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="name-error" />
+                  <p class="field-error" id="name-error" data-error-for="name"></p>
+                </div>
+
+                <div class="field">
+                  <label for="email">Email address <span class="req" aria-hidden="true">*</span></label>
+                  <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" aria-describedby="email-error" />
+                  <p class="field-error" id="email-error" data-error-for="email"></p>
+                </div>
+
+                <div class="field">
+                  <label for="phone">Phone number <span class="req" aria-hidden="true">*</span></label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="25" aria-describedby="phone-error" />
+                  <p class="field-error" id="phone-error" data-error-for="phone"></p>
+                </div>
+
+                <div class="field">
+                  <label for="service">Service required <span class="req" aria-hidden="true">*</span></label>
+                  <select id="service" name="service" required aria-describedby="service-error">
+                    <option value="">Select a service</option>
+                    {enquiryServices.map((name) => <option value={name}>{name}</option>)}
+                  </select>
+                  <p class="field-error" id="service-error" data-error-for="service"></p>
+                </div>
+
+                <div class="field-full visit-panel" id="home-visit" hidden>
+                  <h2 class="visit-title">Your Personalised Quotation</h2>
+                  <p class="visit-intro">To ensure we provide an accurate and competitive quotation, we arrange a home visit to assess your removal or clearance requirements. Once you've submitted your enquiry, our team will contact you to arrange a convenient time.</p>
+                  <div class="form-grid">
+                    <div class="field field-full">
+                      <label for="propertyAddress">Property address <span class="req" aria-hidden="true">*</span></label>
+                      <input id="propertyAddress" name="propertyAddress" type="text" autocomplete="street-address" maxlength="200" aria-describedby="propertyAddress-error" />
+                      <p class="field-error" id="propertyAddress-error" data-error-for="propertyAddress"></p>
+                    </div>
+                    <div class="field">
+                      <label for="propertyPostcode">Property postcode <span class="req" aria-hidden="true">*</span></label>
+                      <input id="propertyPostcode" name="propertyPostcode" type="text" autocomplete="postal-code" maxlength="10" autocapitalize="characters" aria-describedby="propertyPostcode-error" />
+                      <p class="field-error" id="propertyPostcode-error" data-error-for="propertyPostcode"></p>
+                    </div>
+                    <div class="field">
+                      <label for="propertyType">Property type</label>
+                      <select id="propertyType" name="propertyType" aria-describedby="propertyType-error">
+                        <option value="">Select property type</option>
+                        <option value="House">House</option>
+                        <option value="Flat">Flat</option>
+                        <option value="Bungalow">Bungalow</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <p class="field-error" id="propertyType-error" data-error-for="propertyType"></p>
+                    </div>
+                    <div class="field">
+                      <label for="bedrooms">Number of bedrooms</label>
+                      <select id="bedrooms" name="bedrooms" aria-describedby="bedrooms-error">
+                        <option value="">Select, if applicable</option>
+                        <option value="Studio">Studio</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6+">6 or more</option>
+                      </select>
+                      <p class="field-error" id="bedrooms-error" data-error-for="bedrooms"></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="collectionPostcode">Collection postcode</label>
+                  <input id="collectionPostcode" name="collectionPostcode" type="text" autocomplete="postal-code" maxlength="10" autocapitalize="characters" aria-describedby="collectionPostcode-error" />
+                  <p class="field-error" id="collectionPostcode-error" data-error-for="collectionPostcode"></p>
+                </div>
+
+                <div class="field">
+                  <label for="deliveryPostcode">Delivery postcode</label>
+                  <input id="deliveryPostcode" name="deliveryPostcode" type="text" autocomplete="off" maxlength="10" autocapitalize="characters" aria-describedby="deliveryPostcode-error" />
+                  <p class="field-error" id="deliveryPostcode-error" data-error-for="deliveryPostcode"></p>
+                </div>
+
+                <div class="field">
+                  <label for="preferredDate" id="preferredDate-label">Preferred date</label>
+                  <input id="preferredDate" name="preferredDate" type="date" aria-describedby="preferredDate-error" />
+                  <p class="field-error" id="preferredDate-error" data-error-for="preferredDate"></p>
+                </div>
+
+                <div class="field field-full">
+                  <label for="details">Additional details <span class="req" aria-hidden="true">*</span></label>
+                  <textarea id="details" name="details" rows="5" required maxlength="2000" aria-describedby="details-error" placeholder="What needs moving, cleared or collected? Mention stairs, parking or anything awkward."></textarea>
+                  <p class="field-error" id="details-error" data-error-for="details"></p>
+                </div>
+
+                <div class="field field-full field-consent">
+                  <label class="consent-label" for="consent">
+                    <input id="consent" name="consent" type="checkbox" required aria-describedby="consent-error" />
+                    <span>I have read the <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and agree to Optima Transport Limited using my details to respond to this enquiry. <span class="req" aria-hidden="true">*</span></span>
+                  </label>
+                  <p class="field-error" id="consent-error" data-error-for="consent"></p>
+                </div>
+
+                <div class="hp-field" aria-hidden="true">
+                  <label for="website_url">Leave this field empty</label>
+                  <input id="website_url" name="website_url" type="text" tabindex="-1" autocomplete="off" />
+                </div>
+              </div>
+
+              <div id="form-status" class="form-status" role="alert" aria-live="assertive" hidden></div>
+
+              <button type="submit" class="btn btn-primary contact-submit" id="enquiry-submit">
+                <span class="submit-label">Request a Free Quote</span>
+                <span class="submit-spinner" aria-hidden="true"></span>
+              </button>
+              <p class="contact-note">Fields marked * are required. We only use your details to respond to your enquiry.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <script define:vars={{ phone: site.phone, phoneHref: site.phoneHref, email: site.email }}>
+      const form = document.getElementById('enquiry-form');
+      const submitBtn = document.getElementById('enquiry-submit');
+      const statusBox = document.getElementById('form-status');
+      const label = submitBtn.querySelector('.submit-label');
+      const SERVICES = Array.from(form.service.options).map((o) => o.value).filter(Boolean);
+      const HOME_VISIT_SERVICES = ['House Removals', 'House Clearances'];
+      const visitPanel = document.getElementById('home-visit');
+      const dateLabel = document.getElementById('preferredDate-label');
+      const FIELDS = ['name', 'email', 'phone', 'service', 'propertyAddress', 'propertyPostcode', 'propertyType', 'bedrooms', 'collectionPostcode', 'deliveryPostcode', 'preferredDate', 'details', 'consent'];
+      const POSTCODE = /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i;
+      const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      let submitting = false;
+      let submissionId = crypto.randomUUID ? crypto.randomUUID() : '';
+
+      const today = new Date();
+      form.preferredDate.min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+      const preselect = new URLSearchParams(window.location.search).get('service');
+      if (preselect && SERVICES.includes(preselect)) form.service.value = preselect;
+
+      const visitApplies = () => HOME_VISIT_SERVICES.includes(form.service.value);
+      const syncVisitSection = () => {
+        visitPanel.hidden = !visitApplies();
+        dateLabel.textContent = {
+          'House Removals': 'Preferred moving date (if known)',
+          'House Clearances': 'Preferred clearance date (if known)'
+        }[form.service.value] ?? 'Preferred date';
+      };
+      form.service.addEventListener('change', syncVisitSection);
+      syncVisitSection();
+
+      const focusField = (field) => {
+        const el = form.elements[field];
+        if (el) el.focus();
+      };
+
+      const setError = (field, message) => {
+        const input = form.elements[field];
+        const out = form.querySelector(`[data-error-for="${field}"]`);
+        if (out) out.textContent = message || '';
+        if (input) {
+          if (message) input.setAttribute('aria-invalid', 'true');
+          else input.removeAttribute('aria-invalid');
+        }
+      };
+
+      const validate = (v) => {
+        const errors = {};
+        if (v.name.trim().length < 2) errors.name = 'Please enter your full name.';
+        if (!EMAIL.test(v.email.trim())) errors.email = 'Please enter a valid email address.';
+        const digits = v.phone.replace(/\D/g, '');
+        if (!/^\+?[\d\s()-]+$/.test(v.phone.trim()) || digits.length < 10 || digits.length > 13) errors.phone = 'Please enter a valid UK phone number.';
+        if (!SERVICES.includes(v.service)) errors.service = 'Please choose the service you need.';
+        if (visitApplies()) {
+          if (v.propertyAddress.trim().length < 5) errors.propertyAddress = 'Please enter the property address.';
+          if (!POSTCODE.test(v.propertyPostcode.trim())) errors.propertyPostcode = 'Please enter a valid UK postcode, e.g. LS23 6AA.';
+        }
+        if (v.collectionPostcode.trim() && !POSTCODE.test(v.collectionPostcode.trim())) errors.collectionPostcode = 'Please enter a valid UK postcode, e.g. LS23 6AA.';
+        if (v.deliveryPostcode.trim() && !POSTCODE.test(v.deliveryPostcode.trim())) errors.deliveryPostcode = 'Please enter a valid UK postcode, e.g. YO1 7HH.';
+        if (v.preferredDate && v.preferredDate < form.preferredDate.min) errors.preferredDate = 'Please choose today or a future date.';
+        if (v.details.trim().length < 10) errors.details = 'Please tell us a little about the job (at least 10 characters).';
+        if (!v.consent) errors.consent = 'Please confirm you have read the Privacy Policy.';
+        return errors;
+      };
+
+      const showStatus = (html) => {
+        statusBox.innerHTML = html;
+        statusBox.hidden = false;
+      };
+
+      const contactFallback = `You can also call <a href="${phoneHref}">${phone}</a> or email <a href="mailto:${email}">${email}</a>.`;
+
+      const setLoading = (loading) => {
+        submitting = loading;
+        submitBtn.disabled = loading;
+        submitBtn.classList.toggle('is-loading', loading);
+        submitBtn.setAttribute('aria-busy', loading ? 'true' : 'false');
+        label.textContent = loading ? 'Sending…' : 'Request a Free Quote';
+      };
+
+      form.querySelectorAll('input, select, textarea').forEach((el) => {
+        el.addEventListener('input', () => {
+          if (el.name && el.name !== 'website_url') setError(el.name, '');
+        });
+      });
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (submitting) return;
+        statusBox.hidden = true;
+
+        const values = {
+          name: form.elements.namedItem('name').value,
+          email: form.email.value,
+          phone: form.phone.value,
+          service: form.service.value,
+          collectionPostcode: form.collectionPostcode.value,
+          deliveryPostcode: form.deliveryPostcode.value,
+          preferredDate: form.preferredDate.value,
+          details: form.details.value,
+          propertyAddress: form.propertyAddress.value,
+          propertyPostcode: form.propertyPostcode.value,
+          propertyType: form.propertyType.value,
+          bedrooms: form.bedrooms.value,
+          consent: form.consent.checked
+        };
+
+        const errors = validate(values);
+        FIELDS.forEach((f) => setError(f, errors[f]));
+        const firstInvalid = Object.keys(errors)[0];
+        if (firstInvalid) {
+          focusField(firstInvalid);
+          showStatus('Please correct the highlighted fields and try again.');
+          return;
+        }
+
+        setLoading(true);
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 20000);
+        try {
+          const response = await fetch('/api/enquiry', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...values,
+              website_url: form.website_url.value,
+              submissionId,
+              sourcePage: window.location.pathname
+            }),
+            signal: controller.signal
+          });
+          const data = await response.json().catch(() => ({}));
+
+          if (response.ok && data.ok === true) {
+            try {
+              sessionStorage.setItem('optima-home-visit', visitApplies() ? '1' : '');
+            } catch (e) {
+              /* storage unavailable; the thank-you page falls back to its default text */
+            }
+            window.location.assign('/thank-you/');
+            return;
+          }
+
+          if (response.status === 422 && data.errors) {
+            Object.entries(data.errors).forEach(([field, message]) => setError(field, message));
+            const field = Object.keys(data.errors)[0];
+            focusField(field);
+            showStatus('Please correct the highlighted fields and try again.');
+          } else {
+            showStatus(`Sorry, we couldn't send your enquiry just now. Nothing has been lost from the form, so please try again. ${contactFallback}`);
+          }
+        } catch (error) {
+          showStatus(`We couldn't reach our server. Please check your connection and try again. ${contactFallback}`);
+        } finally {
+          clearTimeout(timer);
+          setLoading(false);
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .contact-page {
+    background: var(--off-white);
+    min-height: 70vh;
+  }
+
+  .contact-container {
+    max-width: 52rem;
+  }
+
+  .contact-container .section-head {
+    max-width: 52ch;
+  }
+
+  .contact-container .section-head a {
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .contact-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 24px rgba(24, 24, 26, 0.08);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem 1.5rem;
+  }
+
+  .field {
+    display: block;
+    margin-bottom: 0.9rem;
+    min-width: 0;
+  }
+
+  .field-full {
+    grid-column: 1 / -1;
+  }
+
+  .field label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .req {
+    color: var(--red);
+  }
+
+  .field input[type='text'],
+  .field input[type='email'],
+  .field input[type='tel'],
+  .field input[type='date'],
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--charcoal);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible,
+  .field textarea:focus-visible {
+    outline: none;
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(200, 32, 43, 0.15);
+  }
+
+  .field [aria-invalid='true'] {
+    border-color: var(--red);
+  }
+
+  .field-error {
+    min-height: 1.1rem;
+    margin: 0.3rem 0 0;
+    color: var(--red);
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .consent-label {
+    display: flex !important;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-weight: 400 !important;
+    font-size: 0.9rem !important;
+    color: var(--grey);
+    cursor: pointer;
+  }
+
+  .consent-label input {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.15rem;
+    accent-color: var(--red);
+  }
+
+  .consent-label a {
+    color: var(--charcoal);
+    font-weight: 600;
+  }
+
+  .visit-panel {
+    margin: 0.25rem 0 1.1rem;
+    padding: 1.4rem 1.5rem 0.6rem;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 10px;
+    background: var(--off-white);
+    min-width: 0;
+    animation: visit-reveal 0.35s var(--ease);
+  }
+
+  .visit-panel[hidden] {
+    display: none;
+  }
+
+  .visit-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+
+  .visit-intro {
+    margin: 0 0 1.25rem;
+    font-size: 0.92rem;
+    max-width: none;
+  }
+
+  @keyframes visit-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .visit-panel {
+      animation: none;
+    }
+  }
+
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    margin: 0.5rem 0 1.25rem;
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--red);
+    background: #fbeeee;
+    color: var(--charcoal);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .form-status a {
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .contact-submit {
+    width: 100%;
+    padding: 1.1rem 1.6rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-submit:disabled {
+    cursor: progress;
+    opacity: 0.85;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .submit-spinner {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: var(--white);
+    border-radius: 50%;
+    animation: contact-spin 0.7s linear infinite;
+  }
+
+  .contact-submit.is-loading .submit-spinner {
+    display: inline-block;
+  }
+
+  .contact-note {
+    margin: 1rem 0 0;
+    font-size: 0.82rem;
+    text-align: center;
+    max-width: none;
+  }
+
+  .contact-noscript {
+    margin: 0 0 1.5rem;
+    padding: 0.9rem 1rem;
+    background: #fbeeee;
+    border-left: 3px solid var(--red);
+  }
+
+  @keyframes contact-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contact-card {
+      padding: 2rem 1.25rem;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .submit-spinner {
+      animation-duration: 1.6s;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      transition: none;
+    }
+  }
+</style>

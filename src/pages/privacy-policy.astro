@@ -1,0 +1,95 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { site } from '../data/site.js';
+import '../styles/global.css';
+---
+
+<html lang="en-GB">
+  <head>
+    <SeoHead
+      title="Privacy Policy | Optima Transport Ltd"
+      description="How Optima Transport Limited collects, uses and protects personal information submitted through its website enquiry form."
+      path="/privacy-policy/"
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <section class="section legal-page" aria-labelledby="privacy-title">
+        <div class="container legal-container">
+          <p class="eyebrow">Legal</p>
+          <h1 id="privacy-title">Privacy Policy</h1>
+          <p>This policy explains how {site.legalName} ("Optima Transport", "we", "us") handles personal information collected through this website. We are the data controller for that information under UK data protection law.</p>
+
+          <h2>Who we are</h2>
+          <p>{site.legalName} is a removals, clearance and haulage company based in {site.locality}, {site.region}. You can contact us at <a href={`mailto:${site.email}`}>{site.email}</a> or on <a href={site.phoneHref}>{site.phone}</a>.</p>
+
+          <h2>What we collect</h2>
+          <p>When you submit the enquiry form we collect the details you give us: your name, email address, phone number, the service you need, collection and delivery postcodes, your preferred date and any additional details you write. We also record the date and time of your enquiry and the page you sent it from.</p>
+
+          <h2>How we use it</h2>
+          <ul>
+            <li>To respond to your enquiry and provide a quotation.</li>
+            <li>To arrange and carry out a job if you go ahead.</li>
+            <li>To keep records of enquiries and jobs, and to meet legal and accounting obligations.</li>
+          </ul>
+          <p>Our lawful basis is your consent, given when you tick the consent box on the form, and our legitimate interest in running our business and responding to people who contact us. If you become a customer, we also rely on performing our contract with you.</p>
+
+          <h2>Who we share it with</h2>
+          <p>We do not sell your information. Enquiries are passed to our customer relationship management and messaging provider, GoHighLevel (LeadConnector), which stores them on our behalf, and the website is hosted by Cloudflare. These providers act as processors and handle information only for the purposes of providing their services to us. Some of these providers may process information outside the UK; where they do, we rely on appropriate safeguards such as the UK International Data Transfer Agreement or Addendum.</p>
+
+          <h2>How long we keep it</h2>
+          <p>We keep enquiry details for as long as needed to deal with your enquiry and any resulting job, and for as long afterwards as we need to for legal, tax and accounting reasons. We then delete or anonymise them.</p>
+
+          <h2>Cookies and tracking</h2>
+          <p>This website does not currently use analytics or advertising cookies. If we add them in future we will ask for your consent first and update this policy.</p>
+
+          <h2>Your rights</h2>
+          <p>You can ask us to access, correct or delete your personal information, to restrict or object to how we use it, to withdraw consent at any time, and to receive a copy of it in a portable format. To exercise these rights, email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+          <p>If you are unhappy with how we handle your information, you can complain to the Information Commissioner's Office at <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">ico.org.uk</a>. We would appreciate the chance to put things right first.</p>
+
+          <h2>Changes to this policy</h2>
+          <p>We may update this policy from time to time. The current version is always available on this page.</p>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .legal-container {
+    max-width: 46rem;
+  }
+
+  .legal-container h2 {
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+    margin: 2.25rem 0 0.75rem;
+  }
+
+  .legal-container p,
+  .legal-container li {
+    max-width: none;
+  }
+
+  .legal-container ul {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+    color: var(--grey);
+  }
+
+  .legal-container li {
+    margin-bottom: 0.4rem;
+    line-height: 1.6;
+  }
+
+  .legal-container a {
+    color: var(--red);
+    font-weight: 600;
+  }
+</style>

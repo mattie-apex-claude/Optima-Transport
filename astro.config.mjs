@@ -4,5 +4,9 @@ export default defineConfig({
   site: 'https://www.optimatransport.co.uk',
   build: {
     format: 'directory'
+  },
+  redirects: {
+    '/quote': '/contact/',
+    '/consultation': '/contact/'
   }
 });

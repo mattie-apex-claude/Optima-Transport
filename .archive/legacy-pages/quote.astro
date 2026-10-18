@@ -1,0 +1,447 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { quoteServices } from '../data/services/index.js';
+import '../styles/global.css';
+---
+
+<html lang="en-GB">
+  <head>
+    <SeoHead
+      title="Get A Quote | Optima Transport Ltd"
+      description="Get a fixed price quote from Optima Transport for removals, clearances or haulage across Yorkshire and nationwide."
+      path="/quote/"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <section class="section quote-page">
+        <div class="container quote-container">
+          <div class="section-head">
+            <p class="eyebrow">Get A Quote</p>
+            <h1>Get Your Fixed Quote</h1>
+            <p>Answer a few quick questions and we will send you a fixed price by email.</p>
+          </div>
+
+          <div class="quote-card">
+            <div class="quote-progress" id="quote-progress">
+              <span class="progress-dot" data-dot="1"></span>
+              <span class="progress-dot" data-dot="2"></span>
+              <span class="progress-dot" data-dot="3"></span>
+              <span class="progress-dot" data-dot="4"></span>
+            </div>
+
+            <form id="quote-form" novalidate>
+              <div class="quote-step" data-step="1">
+                <p class="quote-lead">What do you need moved?</p>
+                <div class="option-grid" data-field="service">
+                  {quoteServices.map((name) => (
+                    <button type="button" class="option-pill" data-value={name}>{name}</button>
+                  ))}
+                </div>
+                <p class="field-error" data-error="service"></p>
+              </div>
+
+              <div class="quote-step" data-step="2">
+                <p class="quote-lead">Tell us about the move</p>
+                <label class="field">
+                  <span>Collection area / postcode</span>
+                  <input type="text" name="collection" data-field="collection" autocomplete="off" />
+                  <span class="field-error" data-error="collection"></span>
+                </label>
+                <label class="field">
+                  <span>Destination area / postcode</span>
+                  <input type="text" name="destination" data-field="destination" autocomplete="off" />
+                  <span class="field-error" data-error="destination"></span>
+                </label>
+                <label class="field">
+                  <span>Preferred date</span>
+                  <input type="date" name="date" data-field="date" />
+                  <span class="field-error" data-error="date"></span>
+                </label>
+              </div>
+
+              <div class="quote-step" data-step="3">
+                <p class="quote-lead">Your contact details</p>
+                <label class="field">
+                  <span>Full name</span>
+                  <input type="text" name="name" data-field="name" autocomplete="name" />
+                  <span class="field-error" data-error="name"></span>
+                </label>
+                <label class="field">
+                  <span>Email address</span>
+                  <input type="email" name="email" data-field="email" autocomplete="email" />
+                  <span class="field-error" data-error="email"></span>
+                </label>
+                <label class="field">
+                  <span>Phone number</span>
+                  <input type="tel" name="phone" data-field="phone" autocomplete="tel" />
+                  <span class="field-error" data-error="phone"></span>
+                </label>
+              </div>
+
+              <div class="quote-step quote-step-confirm" data-step="4">
+                <div class="quote-confirm">
+                  <span class="quote-confirm-mark">&#10003;</span>
+                  <h2>Quote Request Received</h2>
+                  <p>Thanks<span data-confirm-name></span>. Our team will review your move and send a fixed price to your email within one working day. We may call you on the number provided if we need anything else.</p>
+                  <a class="btn btn-outline-dark" href="/">Back To Homepage</a>
+                </div>
+              </div>
+
+              <div class="quote-actions">
+                <button type="button" class="btn btn-outline-dark" id="quote-back" hidden>Back</button>
+                <button type="button" class="btn btn-primary" id="quote-next">Next</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <script>
+      const QUOTE_STORAGE_KEY = 'optima-quote-state';
+      const TOTAL_QUOTE_STEPS = 4;
+      const quoteState: { step: number; [key: string]: string | number } = {
+        step: 1,
+        service: '',
+        collection: '',
+        destination: '',
+        date: '',
+        name: '',
+        email: '',
+        phone: ''
+      };
+
+      function loadQuoteState() {
+        try {
+          const raw = sessionStorage.getItem(QUOTE_STORAGE_KEY);
+          if (raw) Object.assign(quoteState, JSON.parse(raw));
+        } catch (e) {
+          /* ignore corrupt storage */
+        }
+      }
+
+      function saveQuoteState() {
+        sessionStorage.setItem(QUOTE_STORAGE_KEY, JSON.stringify(quoteState));
+      }
+
+      function clearQuoteState() {
+        sessionStorage.removeItem(QUOTE_STORAGE_KEY);
+      }
+
+      const quoteForm = document.getElementById('quote-form') as HTMLFormElement;
+      const quoteBackBtn = document.getElementById('quote-back') as HTMLButtonElement;
+      const quoteNextBtn = document.getElementById('quote-next') as HTMLButtonElement;
+      const quoteProgress = document.getElementById('quote-progress') as HTMLElement;
+
+      function setError(field: string, message: string) {
+        const el = quoteForm.querySelector(`[data-error="${field}"]`);
+        if (el) el.textContent = message || '';
+      }
+
+      function validateQuoteStep(step: number) {
+        let valid = true;
+        if (step === 1) {
+          if (!quoteState.service) {
+            setError('service', 'Please choose a service to continue.');
+            valid = false;
+          } else {
+            setError('service', '');
+          }
+        }
+        if (step === 2) {
+          ['collection', 'destination', 'date'].forEach((field) => {
+            const input = quoteForm.querySelector(`[data-field="${field}"]`) as HTMLInputElement;
+            quoteState[field] = input.value.trim();
+            if (!quoteState[field]) {
+              setError(field, 'This field is required.');
+              valid = false;
+            } else {
+              setError(field, '');
+            }
+          });
+        }
+        if (step === 3) {
+          const nameInput = quoteForm.querySelector('[data-field="name"]') as HTMLInputElement;
+          const emailInput = quoteForm.querySelector('[data-field="email"]') as HTMLInputElement;
+          const phoneInput = quoteForm.querySelector('[data-field="phone"]') as HTMLInputElement;
+          quoteState.name = nameInput.value.trim();
+          quoteState.email = emailInput.value.trim();
+          quoteState.phone = phoneInput.value.trim();
+
+          if (!quoteState.name) {
+            setError('name', 'Please enter your name.');
+            valid = false;
+          } else {
+            setError('name', '');
+          }
+
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(String(quoteState.email))) {
+            setError('email', 'Please enter a valid email address.');
+            valid = false;
+          } else {
+            setError('email', '');
+          }
+
+          if (String(quoteState.phone).replace(/\D/g, '').length < 7) {
+            setError('phone', 'Please enter a valid phone number.');
+            valid = false;
+          } else {
+            setError('phone', '');
+          }
+        }
+        return valid;
+      }
+
+      function renderQuoteStep() {
+        quoteForm.querySelectorAll('.quote-step').forEach((panel) => {
+          panel.classList.toggle('is-active', Number((panel as HTMLElement).dataset.step) === quoteState.step);
+        });
+
+        quoteProgress.querySelectorAll('.progress-dot').forEach((dot) => {
+          const dotStep = Number((dot as HTMLElement).dataset.dot);
+          dot.classList.toggle('is-active', dotStep === quoteState.step);
+          dot.classList.toggle('is-complete', dotStep < quoteState.step);
+        });
+        quoteProgress.hidden = quoteState.step > TOTAL_QUOTE_STEPS;
+
+        quoteBackBtn.hidden = quoteState.step <= 1 || quoteState.step > TOTAL_QUOTE_STEPS;
+        quoteNextBtn.hidden = quoteState.step > TOTAL_QUOTE_STEPS - 1;
+        quoteNextBtn.textContent = quoteState.step === TOTAL_QUOTE_STEPS - 1 ? 'Get My Quote' : 'Next';
+
+        quoteForm.querySelectorAll('.option-pill').forEach((pill) => {
+          pill.classList.toggle('is-selected', (pill as HTMLElement).dataset.value === quoteState.service);
+        });
+
+        const fieldMap: Record<string, HTMLInputElement | null> = {
+          collection: quoteForm.querySelector('[data-field="collection"]'),
+          destination: quoteForm.querySelector('[data-field="destination"]'),
+          date: quoteForm.querySelector('[data-field="date"]'),
+          name: quoteForm.querySelector('[data-field="name"]'),
+          email: quoteForm.querySelector('[data-field="email"]'),
+          phone: quoteForm.querySelector('[data-field="phone"]')
+        };
+        Object.entries(fieldMap).forEach(([key, input]) => {
+          if (input) input.value = String(quoteState[key] ?? '');
+        });
+
+        const confirmName = quoteForm.querySelector('[data-confirm-name]');
+        if (confirmName) confirmName.textContent = quoteState.name ? `, ${quoteState.name}` : '';
+      }
+
+      loadQuoteState();
+
+      const params = new URLSearchParams(window.location.search);
+      const preselect = params.get('service');
+      if (preselect && !quoteState.service) {
+        quoteState.service = preselect;
+      }
+
+      renderQuoteStep();
+
+      quoteForm.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        const pill = target.closest('.option-pill') as HTMLElement | null;
+        if (pill) {
+          quoteState.service = pill.dataset.value ?? '';
+          renderQuoteStep();
+        }
+      });
+
+      quoteNextBtn.addEventListener('click', () => {
+        if (!validateQuoteStep(Number(quoteState.step))) return;
+        quoteState.step = Number(quoteState.step) + 1;
+        if (quoteState.step > TOTAL_QUOTE_STEPS) {
+          clearQuoteState();
+        } else {
+          saveQuoteState();
+        }
+        renderQuoteStep();
+        const quoteCard = document.querySelector('.quote-card') as HTMLElement | null;
+        if (quoteCard) window.scrollTo({ top: quoteCard.offsetTop - 100, behavior: 'smooth' });
+      });
+
+      quoteBackBtn.addEventListener('click', () => {
+        quoteState.step = Math.max(1, Number(quoteState.step) - 1);
+        saveQuoteState();
+        renderQuoteStep();
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .quote-page {
+    background: var(--off-white);
+    min-height: 70vh;
+  }
+
+  .quote-container {
+    max-width: 40rem;
+  }
+
+  .quote-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 24px rgba(24, 24, 26, 0.08);
+  }
+
+  .quote-progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .progress-dot {
+    height: 6px;
+    flex: 1;
+    border-radius: 999px;
+    background: var(--border);
+    transition: background-color 0.3s ease;
+  }
+
+  .progress-dot.is-active,
+  .progress-dot.is-complete {
+    background: var(--red);
+  }
+
+  .quote-lead {
+    color: var(--grey);
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+
+  .quote-step {
+    display: none;
+  }
+
+  .quote-step.is-active {
+    display: block;
+  }
+
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .option-pill {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--white);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .option-pill:hover {
+    border-color: var(--red);
+  }
+
+  .option-pill.is-selected {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--white);
+  }
+
+  .field {
+    display: block;
+    margin-bottom: 1.1rem;
+  }
+
+  .field span:first-child {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .field input:focus-visible {
+    outline: none;
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(200, 32, 43, 0.15);
+  }
+
+  .field-error {
+    display: block;
+    min-height: 1.1rem;
+    color: var(--red);
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+
+  .quote-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .quote-confirm {
+    text-align: center;
+    padding: 1.5rem 0 0.5rem;
+  }
+
+  .quote-confirm-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .quote-confirm .btn {
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 560px) {
+    .option-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .quote-card {
+      padding: 2rem 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress-dot,
+    .option-pill,
+    .field input {
+      transition: none;
+    }
+  }
+</style>

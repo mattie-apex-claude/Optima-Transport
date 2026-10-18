@@ -1,0 +1,873 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCtaBar from '../components/MobileCtaBar.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { pages, getChildren, getTrail, quoteHref } from '../data/services/index.js';
+import { coreAreas, widerAreas, site } from '../data/site.js';
+import { reviewsForPage } from '../data/reviews.js';
+import GoogleWordmark from '../components/GoogleWordmark.astro';
+import { localBusinessSchema, serviceSchema, breadcrumbSchema, faqSchema } from '../data/schema.js';
+import '../styles/global.css';
+
+export function getStaticPaths() {
+  return pages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+
+const esc = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const inline = (value: string) => esc(value).replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+const isHub = page.level === 'hub';
+const lower = page.name.toLowerCase();
+const children = getChildren(page);
+const trail = getTrail(page);
+const quote = quoteHref(page);
+const related = (page.related ?? []).map((slug: string) => pages.find((p) => p.slug === slug)).filter(Boolean);
+const pageReviews = reviewsForPage(page.slug);
+
+const schema = [
+  localBusinessSchema(),
+  serviceSchema(page, children),
+  breadcrumbSchema([{ name: 'Home', path: '/' }, ...trail]),
+  faqSchema(page.faqs)
+];
+
+const steps = [
+  { step: '01', title: 'Send your details', copy: 'Use the online quote form or book a consultation and tell us about the job.' },
+  { step: '02', title: 'Receive a fixed quote', copy: 'We review your enquiry and send a clear, fixed price by email.' },
+  { step: '03', title: 'Choose your date', copy: 'Pick a date that works for you and we will lock in the booking.' }
+];
+
+const headings = {
+  children: isHub ? 'Choose the service you need' : `Explore our ${lower} services`,
+  audience: isHub ? 'Who needs our services?' : `Who needs ${lower}?`,
+  why: isHub ? 'Why choose Optima Transport' : `Why choose Optima for ${lower}`,
+  quote: isHub ? 'How to request a quotation' : `How to request your ${lower} quotation`,
+  local: isHub ? 'Serving Boston Spa, Leeds, York and across Yorkshire' : `${page.name} in Boston Spa, Leeds, York and across Yorkshire`,
+  faq: isHub ? 'Frequently asked questions' : `${page.name} FAQs`
+};
+---
+
+<html lang="en-GB">
+  <head>
+    <SeoHead
+      title={page.seoTitle}
+      description={page.metaDescription}
+      path={page.path}
+      image={{ src: page.image.og, width: 1200, height: 630 }}
+      schema={schema}
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <!-- HERO -->
+      <section class="svc-hero" aria-labelledby="page-title">
+        <div class="container svc-hero-inner">
+          <div class="svc-hero-copy">
+            <Breadcrumbs trail={trail} />
+            <p class="eyebrow svc-eyebrow">{page.eyebrow}</p>
+            <h1 id="page-title">{page.h1}</h1>
+            <p class="svc-lead">{page.lead}</p>
+            <div class="svc-actions">
+              <a class="btn btn-primary" href={quote}>Request a Quote</a>
+              <a class="btn btn-outline-light" href="/contact/">Book A Consultation</a>
+            </div>
+            <ul class="svc-points">
+              <li>Fixed-price quotations</li>
+              <li>Fully insured service</li>
+              <li>Based in Boston Spa</li>
+            </ul>
+          </div>
+          <div class="svc-hero-media">
+            <img
+              src={page.image.src}
+              srcset={page.image.srcset}
+              sizes="(min-width: 901px) 560px, 100vw"
+              alt={page.imageAlt}
+              width={page.image.width}
+              height={page.image.height}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- CHILD SERVICES -->
+      {children.length > 0 && (
+        <section class="section svc-children" aria-labelledby="children-title">
+          <div class="container">
+            <div class="section-head reveal">
+              <p class="eyebrow">{isHub ? 'Services' : 'Related Services'}</p>
+              <h2 id="children-title">{headings.children}</h2>
+            </div>
+            <div class="svc-card-grid">
+              {children.map((child, index) => (
+                <article class="svc-card reveal" style={`transition-delay:${index * 0.08}s`}>
+                  <h3><a href={child.path}>{child.name}</a></h3>
+                  <p>{child.summary}</p>
+                  {getChildren(child).length > 0 && (
+                    <ul class="svc-card-links">
+                      {getChildren(child).map((grandchild) => (
+                        <li><a href={grandchild.path}>{grandchild.name}</a></li>
+                      ))}
+                    </ul>
+                  )}
+                  <a class="link-arrow" href={child.path}>View {child.name} <span aria-hidden="true">→</span></a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- SERVICE CONTENT -->
+      {page.sections.map((section: any, sectionIndex: number) => (
+        <section class={`section svc-content ${sectionIndex % 2 === 1 ? 'svc-alt' : ''}`}>
+          <div class="container svc-content-grid">
+            <div class="reveal">
+              <h2>{section.h2}</h2>
+              {section.paras.map((para: string) => <p set:html={inline(para)} />)}
+            </div>
+            {section.items && (
+              <div class="svc-items reveal">
+                {section.items.map((item: any) => (
+                  <div class="svc-item">
+                    <h3>{item.h3}</h3>
+                    <p set:html={inline(item.text)} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      ))}
+
+      <!-- WHO IT IS FOR -->
+      <section class="section svc-audience" aria-labelledby="audience-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Who It Is For</p>
+            <h2 id="audience-title">{headings.audience}</h2>
+          </div>
+          <div class="svc-audience-grid">
+            {page.audience.map((item: any, index: number) => (
+              <div class="svc-audience-item reveal" style={`transition-delay:${index * 0.08}s`}>
+                <h3>{item.h3}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- MID-PAGE CTA -->
+      <section class="svc-cta-strip reveal" aria-label="Request a quotation">
+        <div class="container svc-cta-strip-inner">
+          <p>Ready to go ahead? Get a fixed price for {isHub ? 'your job' : lower}.</p>
+          <a class="btn btn-primary" href={quote}>Request a Quote</a>
+        </div>
+      </section>
+
+      <!-- WHY OPTIMA -->
+      <section class="section-tight trust-strip" aria-labelledby="why-title">
+        <div class="container">
+          <h2 id="why-title" class="reveal">{headings.why}</h2>
+          <div class="trust-row reveal">
+            {page.why.map((item: any) => (
+              <div>
+                <h3>{item.h3}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- CUSTOMER REVIEW -->
+      {pageReviews.length > 0 && (
+        <section class="section-tight svc-review" aria-label="Customer review">
+          <div class="container">
+            {pageReviews.map((review: { name: string; quote: string }) => (
+              <figure class="svc-review-card reveal">
+                <blockquote>&ldquo;{review.quote}&rdquo;</blockquote>
+                <figcaption>
+                  <strong>{review.name}</strong>
+                  <span><GoogleWordmark /> review</span>
+                  {site.googleReviewsUrl && (
+                    <a class="link-arrow" href={site.googleReviewsUrl} target="_blank" rel="noopener noreferrer">Read Our Google Reviews <span aria-hidden="true">→</span></a>
+                  )}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- HOW TO REQUEST A QUOTE -->
+      <section class="section svc-quote" aria-labelledby="quote-title">
+        <div class="container svc-quote-grid">
+          <div class="reveal">
+            <p class="eyebrow">Get A Quotation</p>
+            <h2 id="quote-title">{headings.quote}</h2>
+            <ol class="svc-steps">
+              {steps.map((item) => (
+                <li>
+                  <span class="step-number">{item.step}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.copy}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div class="svc-actions">
+              <a class="btn btn-primary" href={quote}>Get A Quote Online</a>
+              <a class="btn btn-outline-dark" href="/contact/">Book A Consultation</a>
+            </div>
+          </div>
+          <div class="svc-tips reveal">
+            <h3>What to include in your enquiry</h3>
+            <ul>
+              {page.quoteTips.map((tip: string) => <li>{tip}</li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOCAL -->
+      <section class="section svc-local" aria-labelledby="local-title">
+        <div class="container">
+          <div class="reveal">
+            <h2 id="local-title">{headings.local}</h2>
+            <p>{page.local}</p>
+            <ul class="svc-areas" aria-label="Areas we cover">
+              {coreAreas.map((area) => <li>{area}</li>)}
+            </ul>
+            <p class="svc-areas-note">
+              We also work throughout surrounding Yorkshire areas including {widerAreas.slice(0, -1).join(', ')} and {widerAreas[widerAreas.length - 1]}, and carry out nationwide jobs across the UK. Ask about your location.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section faq" aria-labelledby="faq-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">FAQ</p>
+            <h2 id="faq-title">{headings.faq}</h2>
+          </div>
+          <div class="faq-list reveal">
+            {page.faqs.map((item: any, index: number) => (
+              <div class="faq-item">
+                <h3 class="faq-heading">
+                  <button class="faq-question" type="button" aria-expanded="false" aria-controls={`faq-answer-${index}`} id={`faq-question-${index}`}>
+                    <span>{item.q}</span>
+                    <span class="faq-chevron" aria-hidden="true">⌄</span>
+                  </button>
+                </h3>
+                <div class="faq-answer" id={`faq-answer-${index}`} role="region" aria-labelledby={`faq-question-${index}`}>
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATED -->
+      {related.length > 0 && (
+        <section class="section svc-related" aria-labelledby="related-title">
+          <div class="container">
+            <div class="section-head reveal">
+              <p class="eyebrow">Keep Exploring</p>
+              <h2 id="related-title">Related services</h2>
+            </div>
+            <div class="svc-card-grid">
+              {related.map((item: any, index: number) => (
+                <article class="svc-card reveal" style={`transition-delay:${index * 0.08}s`}>
+                  <h3><a href={item.path}>{item.name}</a></h3>
+                  <p>{item.summary}</p>
+                  <a class="link-arrow" href={item.path}>Learn more <span aria-hidden="true">→</span></a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- FINAL CTA -->
+      <section class="final-cta reveal" aria-labelledby="final-cta-title">
+        <div class="container">
+          <h2 id="final-cta-title">{isHub ? 'Tell Us About Your Job' : `Request Your ${page.name} Quote`}</h2>
+          <p>Get a fixed price online in minutes, or book a call with our team to talk through your job.</p>
+          <div class="final-cta-actions">
+            <a class="btn btn-primary" href={quote}>Get A Quote Online</a>
+            <a class="btn btn-outline-light" href="/contact/">Book A Consultation</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+    <MobileCtaBar />
+
+    <script>
+      const revealEls = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.1 }
+      );
+      revealEls.forEach((el) => observer.observe(el));
+
+      document.querySelectorAll('.faq-question').forEach((button) => {
+        button.addEventListener('click', () => {
+          const answerId = button.getAttribute('aria-controls');
+          const answer = answerId ? document.getElementById(answerId) : null;
+          const faqItem = button.closest('.faq-item');
+          if (!answer || !faqItem) return;
+          const isOpen = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!isOpen));
+          answer.style.maxHeight = isOpen ? '' : `${answer.scrollHeight}px`;
+          faqItem.classList.toggle('is-open', !isOpen);
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .section-head {
+    margin-bottom: 2.5rem;
+    max-width: 46ch;
+  }
+
+  /* HERO */
+  .svc-hero {
+    background: var(--charcoal-deep);
+    color: var(--white);
+  }
+
+  .svc-hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 3rem;
+    align-items: center;
+    padding: 1.5rem 0 3.5rem;
+  }
+
+  .svc-hero-copy {
+    min-width: 0;
+  }
+
+  .svc-eyebrow {
+    margin-top: 2rem;
+    color: #ff6a72;
+  }
+
+  .svc-hero h1 {
+    color: var(--white);
+    font-size: clamp(2rem, 4.6vw, 3.4rem);
+    margin-bottom: 1.1rem;
+  }
+
+  .svc-lead {
+    color: #e7e5e6;
+    font-size: clamp(1rem, 1.4vw, 1.1rem);
+    max-width: 52ch;
+  }
+
+  .svc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .svc-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1.75rem;
+    color: #d9d7d8;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .svc-points li {
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--red);
+  }
+
+  .svc-hero-media {
+    aspect-ratio: 4 / 5;
+    max-height: 34rem;
+    justify-self: end;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  }
+
+  .svc-hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+
+  /* CARD GRID */
+  .svc-children {
+    background: var(--off-white);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .svc-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .svc-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.6rem 1.5rem;
+    background: var(--white);
+    border-radius: 14px;
+    border-top: 3px solid var(--red);
+    box-shadow: 0 4px 18px rgba(24, 24, 26, 0.08);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
+  }
+
+  .svc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 40px rgba(24, 24, 26, 0.16);
+  }
+
+  .svc-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .svc-card h3 a {
+    text-decoration: none;
+  }
+
+  .svc-card h3 a:hover {
+    color: var(--red);
+  }
+
+  .svc-card p {
+    font-size: 0.95rem;
+  }
+
+  .svc-card-links {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0 0 1.25rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--border);
+  }
+
+  .svc-card-links a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--charcoal);
+  }
+
+  .svc-card-links a:hover {
+    color: var(--red);
+  }
+
+  .svc-card .link-arrow {
+    margin-top: auto;
+  }
+
+  /* CONTENT */
+  .svc-alt {
+    background: var(--off-white);
+  }
+
+  .svc-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .svc-content-grid:not(:has(.svc-items)) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .svc-content :global(p a) {
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .svc-content :global(p a:hover) {
+    color: var(--red-dark);
+  }
+
+  .svc-items {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .svc-item {
+    padding-left: 1rem;
+    border-left: 2px solid var(--red);
+  }
+
+  .svc-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .svc-item p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* AUDIENCE */
+  .svc-audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1.5rem 2rem;
+  }
+
+  .svc-audience-item {
+    padding-top: 1rem;
+    border-top: 2px solid var(--border);
+  }
+
+  .svc-audience-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .svc-audience-item p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* CTA STRIP */
+  .svc-cta-strip {
+    background: var(--red);
+    color: var(--white);
+    padding: 1.75rem 0;
+  }
+
+  .svc-cta-strip-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+  }
+
+  .svc-cta-strip p {
+    margin: 0;
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    max-width: none;
+  }
+
+  .svc-cta-strip .btn-primary {
+    background: var(--white);
+    color: var(--red);
+    border-color: var(--white);
+  }
+
+  .svc-cta-strip .btn-primary:hover {
+    background: var(--charcoal-deep);
+    color: var(--white);
+    border-color: var(--charcoal-deep);
+  }
+
+  /* WHY (reuses homepage trust strip look) */
+  .trust-strip {
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trust-strip h2 {
+    margin-bottom: 1.75rem;
+  }
+
+  .trust-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 2rem;
+  }
+
+  .trust-row > div {
+    border-left: 2px solid var(--red);
+    padding-left: 1rem;
+  }
+
+  .trust-row h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .trust-row p {
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  /* QUOTE */
+  .svc-quote-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .svc-steps {
+    display: grid;
+    gap: 1.5rem;
+    margin: 1.75rem 0 2rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .svc-steps li {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--red);
+    color: var(--red);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  .svc-steps h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .svc-steps p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .svc-tips {
+    padding: 1.75rem;
+    background: var(--off-white);
+    border-radius: 14px;
+    border-left: 3px solid var(--red);
+  }
+
+  .svc-tips h3 {
+    font-size: 1.15rem;
+  }
+
+  .svc-tips ul {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .svc-tips li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--grey);
+    font-size: 0.95rem;
+  }
+
+  .svc-tips li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: var(--red);
+    border-radius: 50%;
+  }
+
+  /* LOCAL */
+  .svc-local {
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+  }
+
+  .svc-areas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.25rem 0;
+  }
+
+  .svc-areas li {
+    padding: 0.4rem 0.9rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .svc-areas-note {
+    font-size: 0.92rem;
+  }
+
+  /* FAQ (matches homepage accordion) */
+  .faq-list {
+    max-width: 48rem;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-heading {
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--charcoal);
+    cursor: pointer;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-answer p {
+    margin: 0 0 1.1rem;
+    font-size: 0.92rem;
+  }
+
+  /* RELATED */
+  .svc-related {
+    border-top: 1px solid var(--border);
+  }
+
+  /* FINAL CTA (matches homepage) */
+  .final-cta {
+    background: var(--charcoal-deep);
+    color: var(--white);
+    padding: clamp(4rem, 9vw, 7rem) 0;
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .final-cta p {
+    color: #d9d7d8;
+    margin: 0 auto 1.75rem;
+  }
+
+  .final-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  /* CUSTOMER REVIEW */
+  .svc-review-card {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--red);
+  }
+
+  .svc-review-card blockquote {
+    margin: 0 0 1rem;
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+  }
+
+  .svc-review-card figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1rem;
+    font-size: 0.9rem;
+    color: var(--grey);
+  }
+
+  @media (max-width: 900px) {
+    .svc-hero-inner,
+    .svc-content-grid,
+    .svc-quote-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .svc-hero-media {
+      aspect-ratio: 16 / 10;
+      max-height: 22rem;
+      justify-self: stretch;
+    }
+
+    .svc-hero-media img {
+      object-position: center 45%;
+    }
+  }
+</style>
